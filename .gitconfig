@@ -1,0 +1,14 @@
+[user]
+	email = ramon.fried@gmail.com
+	name = Ramon Fried
+[sendemail]
+	smtpencryption = tls
+	smtpserver = smtp.gmail.com
+	smtpuser = ramon.fried@gmail.com
+	smtpserverport = 587
+[color]
+	ui = auto
+[core]
+	editor = vim
+	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	excludesfile = ~/.gitignore
