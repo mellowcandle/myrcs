@@ -19,7 +19,7 @@ set autoindent
 set nostartofline
 set ruler
 set laststatus=2
-set mouse=a
+"set mouse=a
 set cmdheight=2
 set nu
 set textwidth=80
@@ -30,7 +30,7 @@ map <C-n> :NERDTreeToggle<CR>
 " Back and forward in tags
 map <M-Left> <C-T>
 map <M-Right> <C-]>
-"map <C-t> :TlistToggle<CR>
+map <F8> :TlistToggle<CR>
 "
 "
 
