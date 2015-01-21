@@ -47,3 +47,24 @@ function! LoadCscope()
 			      endif
 		      endfunction
 		      au BufEnter /* call LoadCscope()
+
+" ----------------------------------------
+" Enhanced commentify binding and settings
+" ----------------------------------------
+let g:EnhCommentifyFirstLineMode='yes'
+let g:EnhCommentifyRespectIndent='yes'
+let g:EnhCommentifyUseBlockIndent='yes'
+let g:EnhCommentifyAlignRight = 'yes'
+let g:EnhCommentifyPretty = 'yes'
+let g:EnhCommentifyBindInNormal = 'no'
+let g:EnhCommentifyBindInVisual = 'no'
+let g:EnhCommentifyBindInInsert = 'no'
+
+" NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
+" so can't use remap here
+vmap <unique> <F10> <Plug>VisualComment
+nmap <unique> <F10> <Plug>Comment
+imap <unique> <F10> <ESC><Plug>Comment
+vmap <unique> <C-F10> <Plug>VisualDeComment
+nmap <unique> <C-F10> <Plug>DeComment
+imap <unique> <C-F10> <ESC><Plug>DeComment
