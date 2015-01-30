@@ -6,7 +6,7 @@
 
 ########## Variables
 
-dir=~/.dotfiles                    # dotfiles directory
+dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old             # old dotfiles backup directory
 files=".bashrc .gitignore .gitconfig .vimrc .vim"    # list of files/folders to symlink in homedir
 
