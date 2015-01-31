@@ -33,6 +33,9 @@ map <M-Right> <C-]>
 map <F8> :TlistToggle<CR>
 map <C-h> :Hexmode<CR>
 
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
 "
 "
 
