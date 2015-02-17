@@ -65,6 +65,13 @@ let g:EnhCommentifyBindInNormal = 'no'
 let g:EnhCommentifyBindInVisual = 'no'
 let g:EnhCommentifyBindInInsert = 'no'
 
+" -----------------------------------------
+"  Default size for NerdTree and Taglist
+" -----------------------------------------
+let g:NERDTreeWinSize=50
+let g:Tlist_WinWidth=50
+
+
 " NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
 " so can't use remap here
 vmap <unique> <F10> <Plug>VisualComment
