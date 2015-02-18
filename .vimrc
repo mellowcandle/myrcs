@@ -1,7 +1,7 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
-
+colorscheme monokai
 set wildmenu
 set showcmd
 syn on se title
