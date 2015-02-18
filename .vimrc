@@ -71,6 +71,12 @@ let g:EnhCommentifyBindInInsert = 'no'
 let g:NERDTreeWinSize=50
 let g:Tlist_WinWidth=50
 
+" -----------------------------------------
+"  Snippets mapping
+" -----------------------------------------
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
 " NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
 " so can't use remap here
