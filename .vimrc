@@ -78,6 +78,15 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
+" -------------------------------------------
+" Make YCM and Ultisnips work together nicely
+" -------------------------------------------
+"let g:ycm_key_list_select_completion=[]
+"let g:ycm_key_list_previous_completion=[]
+let g:ycm_key_list_select_completion = ["<C-TAB>","<Down>"]
+let g:ycm_key_list_previous_completion = ["<C-S-TAB>", "<Up>"]
+let g:SuperTabDefaultCompletionType = "<C-Tab>"
+
 " NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
 " so can't use remap here
 vmap <unique> <F10> <Plug>VisualComment
