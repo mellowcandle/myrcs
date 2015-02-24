@@ -31,7 +31,7 @@ map <C-n> :NERDTreeToggle<CR>
 map <M-Left> <C-T>
 map <M-Right> <C-]>
 map <F8> :TlistToggle<CR>
-map <C-h> :Hexmode<CR>
+map <F9> :Hexmode<CR>
 
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
