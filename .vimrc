@@ -78,6 +78,10 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
+" ------------------
+" YCM Configuration
+" ------------------
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 " -------------------------------------------
 " Make YCM and Ultisnips work together nicely
 " -------------------------------------------
