@@ -1,0 +1,5 @@
+# List of packages to get on every new machine
+sudo apt-get install cmake ack-grep tree git
+
+# List of customizations
+sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep 
