@@ -13,3 +13,5 @@ cd ycm_build
 cmake -G "Unix Makefiles" -DPATH_TO_LLVM_ROOT=~/ycm_temp/llvm_root_dir . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
 make ycm_support_libs
 
+Once in a while you would probably want to update the dependencies like that:\
+git submodule foreach git pull --rebase origin master

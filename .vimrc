@@ -1,3 +1,4 @@
+set nocp
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
@@ -5,11 +6,12 @@ colorscheme monokai
 set wildmenu
 set showcmd
 syn on se title
-set tabstop=8
-set softtabstop=8
-set shiftwidth=8
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set noexpandtab
 set hlsearch
+set smarttab
 " #set incsearch
 
 set ignorecase
@@ -19,7 +21,14 @@ set backspace=indent,eol,start
 set nostartofline
 set ruler
 set laststatus=2
-"set mouse=a
+
+set showmatch
+set matchtime=5
+
+if has('mouse')
+	set mouse=a " all mode
+	set mousehide " hide mouse when typing
+endif
 set cmdheight=2
 set nu
 set textwidth=80
@@ -32,7 +41,7 @@ map <M-Left> <C-T>
 map <M-Right> <C-]>
 map <F8> :TlistToggle<CR>
 map <F9> :Hexmode<CR>
-
+noremap <leader>st :SyntasticToggleMode<CR>
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
@@ -82,6 +91,20 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 " YCM Configuration
 " ------------------
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_filetype_blacklist = {
+	\ 'tagbar' : 1,
+	\ 'qf' : 1,
+	\ 'notes' : 1,
+	\ 'markdown' : 1,
+	\ 'unite' : 1,
+	\ 'text' : 1,
+	\ 'vimwiki' : 1,
+	\ 'pandoc' : 1,
+	\ 'tree' : 1,
+	\ 'mail' : 1
+	\}
 " -------------------------------------------
 " Make YCM and Ultisnips work together nicely
 " -------------------------------------------
@@ -148,5 +171,33 @@ function ToggleHex()
   let &modifiable=l:oldmodifiable
 endfunction
 
+"------------------
+" Syntactic stuff
+" -----------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"--------------------------
+" Remove trailing whitespace
+" --------------------------
+function RemoveTrailingWhitespace()
+let b:curcol = col(".")
+let b:curline = line(".")
+silent! %s/\s\+$//
+silent! %s/\(\s*\n\)\+\%$//
+call cursor(b:curline, b:curcol)
+endfunction
+
+"-----------------------
+" NerdTree customization
+" ----------------------
+ autocmd StdinReadPre * let s:std_in=1
+ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 
