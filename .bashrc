@@ -10,10 +10,6 @@ esac
 
 source ~/.git-prompt
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -132,4 +128,4 @@ fi
       export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
     fi
 
-export PATH=/home/stdcall/bin:$PATH
+export PATH=~/bin:$PATH

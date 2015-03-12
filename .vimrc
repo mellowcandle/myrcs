@@ -202,3 +202,9 @@ endfunction
 
 " Quit with :Q
 command -nargs=0 Quit :qa!
+
+
+" Session plugin
+let g:session_autosave='yes'
+let g:session_autoload='yes'
+
