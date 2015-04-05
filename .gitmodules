@@ -1,30 +1,30 @@
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
-	url = git@github.com/scrooloose/nerdtree.git
+	url = git@github.com:scrooloose/nerdtree.git
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
 	url = git@github.com:tpope/vim-fugitive.git
 [submodule ".vim/bundle/ultisnips"]
 	path = .vim/bundle/ultisnips
-	url = git@github.com/SirVer/ultisnips.git
+	url = git@github.com:SirVer/ultisnips.git
 [submodule ".vim/bundle/vim-snippets"]
 	path = .vim/bundle/vim-snippets
-	url = git@github.com/honza/vim-snippets.git
+	url = git@github.com:honza/vim-snippets.git
 [submodule ".vim/bundle/supertab"]
 	path = .vim/bundle/supertab
-	url = git@github.com/ervandew/supertab.git
+	url = git@github.com:ervandew/supertab.git
 [submodule ".vim/bundle/bufexplorer"]
 	path = .vim/bundle/bufexplorer
-	url = git@github.com/jlanzarotta/bufexplorer.git
+	url = git@github.com:jlanzarotta/bufexplorer.git
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
-	url = git@github.com/scrooloose/syntastic.git
+	url = git@github.com:scrooloose/syntastic.git
 [submodule ".vim/bundle/ZoomWin"]
 	path = .vim/bundle/ZoomWin
 	url = git@github.com:vim-scripts/ZoomWin.git
 [submodule ".vim/bundle/vim-session"]
 	path = .vim/bundle/vim-session
-	url = git@github.com/xolox/vim-session.git
+	url = git@github.com:xolox/vim-session.git
 [submodule ".vim/bundle/vim-misc"]
 	path = .vim/bundle/vim-misc
-	url = git@github.com/xolox/vim-misc.git
+	url = git@github.com:xolox/vim-misc.git
