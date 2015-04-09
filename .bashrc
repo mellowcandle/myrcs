@@ -9,7 +9,8 @@ case $- in
 esac
 
 source ~/.git-prompt
-
+source ~/.localbash.rc
+source ~/.acd_func
 # append to the history file, don't overwrite it
 shopt -s histappend
 

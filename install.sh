@@ -8,7 +8,7 @@
 
 dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old             # old dotfiles backup directory
-files=".bashrc .gitignore .gitconfig .vimrc .vim .git-prompt"    # list of files/folders to symlink in homedir
+files=".bashrc .gitignore .gitconfig .vimrc .vim .git-prompt .acd_func"    # list of files/folders to symlink in homedir
 
 ##########
 
