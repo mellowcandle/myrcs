@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/vim-misc"]
 	path = .vim/bundle/vim-misc
 	url = git@github.com:xolox/vim-misc.git
+[submodule "extra/PathPicker"]
+	path = extra/PathPicker
+	url = git@github.com:facebook/PathPicker.git

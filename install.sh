@@ -29,3 +29,6 @@ for file in $files; do
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/$file
 done
+
+# Install filepicker
+ln -s $dir/extra/PathPicker/fpp /usr/local/bin/fpp
