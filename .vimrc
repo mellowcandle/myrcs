@@ -25,10 +25,10 @@ set laststatus=2
 set showmatch
 set matchtime=5
 
-if has('mouse')
-	set mouse=a " all mode
-	set mousehide " hide mouse when typing
-endif
+" if has('mouse')
+" 	set mouse=a " all mode
+" 	set mousehide " hide mouse when typing
+" endif
 set cmdheight=2
 set nu
 set textwidth=80
