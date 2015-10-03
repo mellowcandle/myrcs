@@ -1,6 +1,6 @@
 # To install first run
 
-apt-get install cmake python-dev htop iotop tcputils build-essential git
+apt-get install cmake python-dev htop iotop tcputils build-essential git tmux
 
 Download clang:
 http://llvm.org/releases/3.5.1/clang+llvm-3.5.1-x86_64-linux-gnu.tar.xz
