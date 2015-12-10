@@ -8,9 +8,19 @@ case $- in
       *) return;;
 esac
 
-source ~/.git-prompt
-source ~/.acd_func
-source ~/.bashrc.local
+if [ -f ~/.git-prompt ]; then
+	source ~/.git-prompt
+fi
+
+if [ -f ~/.acd_fund ]; then
+	source ~/.acd_func
+fi
+
+if [ -f ~/.bashrc.local ]; then
+	source ~/.bashrc.local
+fi
+
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 
