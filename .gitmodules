@@ -31,3 +31,6 @@
 [submodule "extra/PathPicker"]
 	path = extra/PathPicker
 	url = git@github.com:facebook/PathPicker.git
+[submodule ".vim/bundle/vim-airline"]
+	path = .vim/bundle/vim-airline
+	url = git://github.com/bling/vim-airline
