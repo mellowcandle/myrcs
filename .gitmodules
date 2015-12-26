@@ -34,3 +34,9 @@
 [submodule ".vim/bundle/vim-airline"]
 	path = .vim/bundle/vim-airline
 	url = git://github.com/bling/vim-airline
+[submodule "extra/powerline_fonts"]
+	path = extra/powerline_fonts
+	url = git@github.com:powerline/fonts.git
+[submodule "extra/gdb-dashboard"]
+	path = extra/gdb-dashboard
+	url = git@github.com:cyrus-and/gdb-dashboard.git

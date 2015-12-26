@@ -30,5 +30,8 @@ for file in $files; do
     ln -s $dir/$file ~/$file
 done
 
+
+# .gdbinit is in a special directory
+	ln -s $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
 # Install filepicker
 ln -s $dir/extra/PathPicker/fpp /usr/local/bin/fpp
