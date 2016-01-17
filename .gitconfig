@@ -1,11 +1,6 @@
 [user]
-	email = ramon.fried@gmail.com
-	name = Ramon Fried
-[sendemail]
-	smtpencryption = tls
-	smtpserver = smtp.gmail.com
-	smtpuser = ramon.fried@gmail.com
-	smtpserverport = 587
+	email = noamx.chen@intel.com
+	name = Noam Chen
 [color]
 	ui = auto
 [core]
