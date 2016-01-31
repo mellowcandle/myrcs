@@ -139,4 +139,32 @@ fi
       export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
     fi
 
-export PATH=~/bin:$PATH
+#path variable
+export PATH=$PATH:~/toolchain/linux_install/arc_gnu_2015.06_prebuilt_elf32_le_linux_install/bin
+export PATH=$PATH:~/bin
+
+#git aliases
+alias gis='git status '
+alias gia='git add '
+alias gib='git branch '
+alias gic='git commit -s -m'
+alias gid='git diff'
+alias gco='git checkout '
+alias gin='git init'
+alias gil="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
+alias gig="git push aosp HEAD:refs/for/communitake"
+alias gica='git commit --amend'
+
+#vpn
+alias vpn_connect='echo 1q2w3e! | sudo openconnect -b --no-proxy -u noamx.chen@intel.com  --passwd-on-stdin -c ~/.cert/certificate.p12 --key-password-from-fsid vpn.intel.com'
+alias vpn_disconnect='sudo pkill openconnect'
+
+#simics
+alias rsm="/home/cnoam/ws/simics -e '\$coh_image=/home/cnoam/coh_rom/rom/rom.elf' /home/cnoam/ws/targets/arc-coh/coh.simics"
+alias rsr="/home/cnoam/ws/simics -e '\$coh_image=/home/cnoam/sdk3/internal/bootrom/rom/rom.elf' /home/cnoam/ws/targets/arc-coh/coh.simics"
+
+#cd
+alias cdb='cd ~/sdk3/internal/bootrom'
+
+#checkpatch
+alias chk='/usr/src/linux-headers-3.19.0-42/scripts/checkpatch.pl --notree'
