@@ -31,7 +31,7 @@ set matchtime=5
 " endif
 set cmdheight=2
 set nu
-set textwidth=80
+"set textwidth=80
 
 
 " My mappings
@@ -47,7 +47,7 @@ set pastetoggle=<F2>
 set showmode
 "
 "
-
+"let g:airline_powerline_fonts = 1
 " Automatic tag loading
 set tags=./tags;/
 
@@ -211,4 +211,18 @@ command -nargs=0 Quit :qa!
 " Session plugin
 let g:session_autosave='yes'
 let g:session_autoload='yes'
+
+"-----------------------
+" Airline customization
+" ----------------------
+let g:airline_powerline_fonts = 1
+
+"-----------------------
+" Ctrl-p customization
+" ----------------------
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+" Python stuff
+nnoremap <silent> <F5> :!clear;python %<CR>
 
