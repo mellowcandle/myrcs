@@ -40,3 +40,6 @@
 [submodule "extra/gdb-dashboard"]
 	path = extra/gdb-dashboard
 	url = git@github.com:cyrus-and/gdb-dashboard.git
+[submodule ".vim/bundle/ctrlp.vim"]
+	path = .vim/bundle/ctrlp.vim
+	url = git://github.com/ctrlpvim/ctrlp.vim.git
