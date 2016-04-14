@@ -12,7 +12,7 @@ if [ -f ~/.git-prompt ]; then
 	source ~/.git-prompt
 fi
 
-if [ -f ~/.acd_fund ]; then
+if [ -f ~/.acd_func ]; then
 	source ~/.acd_func
 fi
 

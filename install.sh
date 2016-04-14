@@ -35,3 +35,6 @@ done
 	ln -s $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
 # Install filepicker
 ln -s $dir/extra/PathPicker/fpp /usr/local/bin/fpp
+
+sudo wget -P /usr/local/bin/ https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl
+sudo chmod +x /usr/local/bin/checkpatch.pl
