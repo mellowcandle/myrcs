@@ -39,6 +39,7 @@ map <C-n> :NERDTreeToggle<CR>
 " Back and forward in tags
 map <M-Left> <C-T>
 map <M-Right> <C-]>
+nnoremap <silent> <F6> :ToggleBufExplorer<CR>
 map <F8> :TlistToggle<CR>
 map <F9> :Hexmode<CR>
 noremap <leader>st :SyntasticToggleMode<CR>
@@ -46,8 +47,6 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 "
-"
-"let g:airline_powerline_fonts = 1
 " Automatic tag loading
 set tags=./tags;/
 
