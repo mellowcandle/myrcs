@@ -33,7 +33,7 @@
 	url = https://github.com/facebook/PathPicker.git
 [submodule ".vim/bundle/vim-airline"]
 	path = .vim/bundle/vim-airline
-	url = git://github.com/bling/vim-airline
+	url = https://github.com/bling/vim-airline
 [submodule "extra/powerline_fonts"]
 	path = extra/powerline_fonts
 	url = https://github.com/powerline/fonts.git
