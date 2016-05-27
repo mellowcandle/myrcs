@@ -1,5 +1,50 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'tpope/vim-fugitive'
+Plugin 'hrp/EnhancedCommentify'
+Plugin 'vim-scripts/ZoomWin'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'vim-scripts/cscope.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'ervandew/supertab'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/syntastic'
+Plugin 'vim-scripts/taglist.vim'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+Plugin 'vim-airline/vim-airline'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
+Plugin 'Valloric/YouCompleteMe'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
 set nocp
-execute pathogen#infect()
 syntax on
 filetype plugin indent on
 colorscheme monokai
@@ -12,7 +57,7 @@ set shiftwidth=4
 set noexpandtab
 set hlsearch
 set smarttab
-" #set incsearch
+"set incsearch
 
 set ignorecase
 set smartcase
@@ -82,14 +127,15 @@ let g:Tlist_WinWidth=50
 " -----------------------------------------
 "  Snippets mapping
 " -----------------------------------------
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
 " ------------------
 " YCM Configuration
 " ------------------
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_filetype_blacklist = {
@@ -109,8 +155,8 @@ let g:ycm_filetype_blacklist = {
 " -------------------------------------------
 "let g:ycm_key_list_select_completion=[]
 "let g:ycm_key_list_previous_completion=[]
-let g:ycm_key_list_select_completion = ["<C-TAB>","<Down>"]
-let g:ycm_key_list_previous_completion = ["<C-S-TAB>", "<Up>"]
+"let g:ycm_key_list_select_completion = ["<C-TAB>","<Down>"]
+"let g:ycm_key_list_previous_completion = ["<C-S-TAB>", "<Up>"]
 let g:SuperTabDefaultCompletionType = "<C-Tab>"
 
 " NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
@@ -177,6 +223,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:statline_syntastic = 0
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
