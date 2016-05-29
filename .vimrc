@@ -27,7 +27,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 Plugin 'Valloric/YouCompleteMe'
-
+Plugin 'airblade/vim-gitgutter'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -66,7 +66,6 @@ set backspace=indent,eol,start
 set nostartofline
 set ruler
 set laststatus=2
-
 set showmatch
 set matchtime=5
 
