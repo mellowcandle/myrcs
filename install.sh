@@ -36,5 +36,11 @@ ln -s $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
 # Install filepicker
 sudo ln -s $dir/extra/PathPicker/fpp /usr/local/bin/fpp
 
+# Install Checkpatch
 sudo wget -P /usr/local/bin/ https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl
 sudo chmod +x /usr/local/bin/checkpatch.pl
+
+# Install TLDR
+sudo curl -o /usr/local/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
+sudo chmod +x /usr/local/bin/tldr
+
