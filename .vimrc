@@ -28,7 +28,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
-
+Plugin 'tpope/vim-git'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -77,13 +77,24 @@ set cmdheight=2
 set nu
 "set textwidth=80
 
+" Watch this file
+augroup myvimrc
+  au!
+  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
 
 " My mappings
 map <C-n> :NERDTreeToggle<CR>
 " Back and forward in tags
 map <M-Left> <C-T>
 map <M-Right> <C-]>
-nnoremap <silent> <F6> :ToggleBufExplorer<CR>
+
+" BufExplorer mapping
+nnoremap <silent> <F6> :BufExplorer<CR>
+nnoremap <silent> <s-F6> :ToggleBufExplorer<CR>
+nnoremap <silent> <m-F6> :BufExplorerHorizontalSplit<CR>
+nnoremap <silent> <c-F6> :BufExplorerVerticalSplit<CR>
+
 map <F8> :TlistToggle<CR>
 map <F9> :Hexmode<CR>
 noremap <leader>st :SyntasticToggleMode<CR>
@@ -134,7 +145,7 @@ let g:Tlist_WinWidth=50
 " YCM Configuration
 " ------------------
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 1
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_filetype_blacklist = {
@@ -269,5 +280,5 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 " Python stuff
-nnoremap <silent> <F5> :!clear;python %<CR>
+" nnoremap <silent> <F5> :!clear;python %<CR>
 
