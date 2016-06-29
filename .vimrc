@@ -28,7 +28,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-git'
+Plugin 'Chiel92/vim-autoformat'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -84,6 +84,7 @@ augroup myvimrc
 augroup END
 
 " My mappings
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 map <C-n> :NERDTreeToggle<CR>
 " Back and forward in tags
 map <M-Left> <C-T>
@@ -180,7 +181,7 @@ imap <unique> <C-F10> <ESC><Plug>DeComment
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""'
-" Hex file adding functionality 
+" Hex file adding functionality
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " ex command for toggling hex mode - define mapping if desired
@@ -202,7 +203,7 @@ function ToggleHex()
     let b:oldbin=&bin
     " set new options
     setlocal binary " make sure it overrides any textwidth, etc.
-    silent :e " this will reload the file without trickeries 
+    silent :e " this will reload the file without trickeries
               "(DOS line endings will be shown entirely )
     let &ft="xxd"
     " set status
@@ -282,3 +283,23 @@ let g:ctrlp_cmd = 'CtrlP'
 " Python stuff
 " nnoremap <silent> <F5> :!clear;python %<CR>
 
+"-----------------------
+" auto-format customization
+" ----------------------
+
+" Enable debugging
+let g:autoformat_verbosemode=1
+
+
+noremap <F3> :Autoformat<CR>
+
+" Disallow vim's automatic formatting incase astyle is missing
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+
+" Specific formatting options
+let g:formatdef_my_c_userspace = '"astyle --mode=cs --style=ansi -pcHs4"'
+let g:formatdef_my_c_kernelspace = '"astyle --mode=c --style=knf --indent=tab --align-pointer=name"'
+
+let g:formatters_c = ['my_c_kernelspace','my_c_userspace']
