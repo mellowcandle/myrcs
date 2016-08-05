@@ -10,6 +10,8 @@ dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old             # old dotfiles backup directory
 files=".tmux.conf .bashrc .bash_aliases .gitignore .gitconfig .vimrc .vim .git-prompt .acd_func"    # list of files/folders to symlink in homedir
 
+
+mkdir -p ~/bin
 ##########
 
 # create dotfiles_old in homedir
@@ -34,13 +36,13 @@ done
 # .gdbinit is in a special directory
 ln -s $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
 # Install filepicker
-sudo ln -s $dir/extra/PathPicker/fpp /usr/local/bin/fpp
+ln -s $dir/extra/PathPicker/fpp ~/bin/fpp
 
 # Install Checkpatch
-sudo wget -P /usr/local/bin/ https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl
-sudo chmod +x /usr/local/bin/checkpatch.pl
+wget -P ~/bin/ https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl
+chmod +x ~/bin/checkpatch.pl
 
 # Install TLDR
-sudo curl -o /usr/local/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
-sudo chmod +x /usr/local/bin/tldr
+curl -o ~/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
+chmod +x ~/bin/tldr
 
