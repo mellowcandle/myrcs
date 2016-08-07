@@ -36,3 +36,8 @@
 	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
 	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
 	subpull = !git submodule foreach git pull --tags origin master
+
+[include]
+	path = .gitconfig.local
+
+
