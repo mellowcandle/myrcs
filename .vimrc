@@ -21,14 +21,15 @@ Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/taglist.vim'
-"Plugin 'SirVer/ultisnips'
-"Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'vim-airline/vim-airline'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'ntpeters/vim-better-whitespace'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -82,6 +83,9 @@ augroup myvimrc
   au!
   au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
+
+
+au BufRead,BufNewFile *.s set filetype=nasm
 
 " My mappings
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -138,9 +142,10 @@ let g:Tlist_WinWidth=50
 " -----------------------------------------
 "  Snippets mapping
 " -----------------------------------------
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-j>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsExpandTrigger="~"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+"let g:UltiSnipsSnippetsDir="~/myrcs/private_snippets"
 
 " ------------------
 " YCM Configuration
@@ -168,7 +173,7 @@ let g:ycm_filetype_blacklist = {
 "let g:ycm_key_list_previous_completion=[]
 "let g:ycm_key_list_select_completion = ["<C-TAB>","<Down>"]
 "let g:ycm_key_list_previous_completion = ["<C-S-TAB>", "<Up>"]
-let g:SuperTabDefaultCompletionType = "<C-Tab>"
+"let g:SuperTabDefaultCompletionType = "<C-Tab>"
 
 " NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
 " so can't use remap here
@@ -188,7 +193,7 @@ imap <unique> <C-F10> <ESC><Plug>DeComment
 command -bar Hexmode call ToggleHex()
 
 " helper function to toggle hex mode
-function ToggleHex()
+function! ToggleHex()
   " hex mode should be considered a read-only operation
   " save values for modified and read-only for restoration later,
   " and clear the read-only flag for now
@@ -243,7 +248,7 @@ let g:syntastic_mode_map = { 'mode': 'passive' }
 "--------------------------
 " Remove trailing whitespace
 " --------------------------
-function RemoveTrailingWhitespace()
+function! RemoveTrailingWhitespace()
 let b:curcol = col(".")
 let b:curline = line(".")
 silent! %s/\s\+$//
@@ -291,7 +296,7 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:autoformat_verbosemode=1
 
 
-noremap <F3> :Autoformat<CR>
+" noremap <F3> :let g:formatters_c = ['my_c_kernelspace'] | Autoformat<CR>
 
 " Disallow vim's automatic formatting incase astyle is missing
 let g:autoformat_autoindent = 0
@@ -302,4 +307,4 @@ let g:autoformat_remove_trailing_spaces = 0
 let g:formatdef_my_c_userspace = '"astyle --mode=cs --style=ansi -pcHs4"'
 let g:formatdef_my_c_kernelspace = '"astyle --mode=c --style=knf --indent=tab --align-pointer=name"'
 
-let g:formatters_c = ['my_c_kernelspace','my_c_userspace']
+" let g:formatters_c = ['my_c_kernelspace']
