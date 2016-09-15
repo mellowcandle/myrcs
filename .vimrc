@@ -147,7 +147,7 @@ let g:Tlist_WinWidth=50
 let g:UltiSnipsExpandTrigger="~"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-"let g:UltiSnipsSnippetsDir="~/myrcs/private_snippets"
+let g:UltiSnipsSnippetsDir="~/myrcs/private_snippets"
 
 " ------------------
 " YCM Configuration
@@ -289,13 +289,16 @@ let g:ctrlp_cmd = 'CtrlP'
 
 " Python stuff
 " nnoremap <silent> <F5> :!clear;python %<CR>
-
+nnoremap <F5> :silent :make<CR>:redr!<CR>
+nnoremap <C-F5> :make clean && make<CR>:redr!<CR>
+nnoremap <F4> :silent !./start_new_kernel.sh<CR>:redr!<CR>
+nnoremap <C-F4> :!./start_new_kernel.sh -d<CR>:redr!<CR>
 "-----------------------
 " auto-format customization
 " ----------------------
 
 " Enable debugging
-let g:autoformat_verbosemode=1
+" let g:autoformat_verbosemode=1
 
 
 " noremap <F3> :let g:formatters_c = ['my_c_kernelspace'] | Autoformat<CR>
