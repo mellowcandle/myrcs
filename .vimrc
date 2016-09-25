@@ -25,7 +25,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'vim-airline/vim-airline'
 Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-session'
+"Plugin 'xolox/vim-session'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Chiel92/vim-autoformat'
@@ -79,6 +79,8 @@ set matchtime=5
 set cmdheight=2
 set nu
 "set textwidth=80
+
+set clipboard=unnamedplus
 
 " Watch this file
 augroup myvimrc
@@ -289,8 +291,8 @@ let g:ctrlp_cmd = 'CtrlP'
 
 " Python stuff
 " nnoremap <silent> <F5> :!clear;python %<CR>
-nnoremap <F5> :silent :make<CR>:redr!<CR>
-nnoremap <C-F5> :make clean && make<CR>:redr!<CR>
+nnoremap <F5> :silent :make -j8 <CR>:redr!<CR>
+nnoremap <C-F5> :make clean && make -j8 <CR>:redr!<CR>
 nnoremap <F4> :silent !./start_new_kernel.sh<CR>:redr!<CR>
 nnoremap <C-F4> :!./start_new_kernel.sh -d<CR>:redr!<CR>
 "-----------------------

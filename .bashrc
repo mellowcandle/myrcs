@@ -143,3 +143,6 @@ fi
     fi
 
 export PATH=~/bin:$PATH
+
+alias tmux="TERM=screen-256color-bce tmux"
+

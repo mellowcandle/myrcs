@@ -32,6 +32,8 @@
 	s = status
 	a = add
 	c = commit -sm
+	d = diff
+	dc = diff --cached
 
 	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
 	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
