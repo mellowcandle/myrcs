@@ -4,3 +4,9 @@ sudo apt-get install cmake ack-grep tree git manpages-dev manpages-posix-dev tmu
 pip maybe
 # List of customizations
 sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+
+
+
+Arch installs
+
+sudo pacman -S perl-net-smtp-ssl perl-authen-sasl perl-mime-tools
