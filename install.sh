@@ -38,6 +38,8 @@ ln -s $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
 # Install filepicker
 ln -s $dir/extra/PathPicker/fpp ~/bin/fpp
 
+ln -s $dir/extra/tmux-vim-select-pane /bin/tmux-vim-select-pane
+
 # Install Checkpatch
 wget -P ~/bin/ https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl
 chmod +x ~/bin/checkpatch.pl
