@@ -316,3 +316,9 @@ let g:formatdef_my_c_userspace = '"astyle --mode=cs --style=ansi -pcHs4"'
 let g:formatdef_my_c_kernelspace = '"astyle --mode=c --style=knf --indent=tab --align-pointer=name"'
 
 " let g:formatters_c = ['my_c_kernelspace']
+
+" No more arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
