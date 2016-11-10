@@ -34,7 +34,7 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 Plugin 'kshenoy/vim-signature'
-
+Plugin 'wikitopian/hardmode'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -318,4 +318,4 @@ let g:formatdef_my_c_userspace = '"astyle --mode=cs --style=ansi -pcHs4"'
 let g:formatdef_my_c_kernelspace = '"astyle --mode=c --style=knf --indent=tab --align-pointer=name"'
 
 " let g:formatters_c = ['my_c_kernelspace']
-
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call NoArrows()
