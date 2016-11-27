@@ -33,6 +33,8 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
+Plugin 'kshenoy/vim-signature'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -317,8 +319,3 @@ let g:formatdef_my_c_kernelspace = '"astyle --mode=c --style=knf --indent=tab --
 
 " let g:formatters_c = ['my_c_kernelspace']
 
-" No more arrow keys
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
