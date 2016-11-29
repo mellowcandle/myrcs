@@ -26,7 +26,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'vim-airline/vim-airline'
 Plugin 'xolox/vim-misc'
 Plugin 'christoomey/vim-tmux-navigator'
-"Plugin 'xolox/vim-session'
+Plugin 'xolox/vim-session'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Chiel92/vim-autoformat'
@@ -266,8 +266,9 @@ endfunction
 "-----------------------
 " NerdTree customization
 " ----------------------
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
 let NERDTreeIgnore=['.*\.o$']
 let NERDTreeIgnore+=['.*\.d$']
 let NERDTreeIgnore+=['.*\~$']
@@ -280,6 +281,8 @@ command -nargs=0 Quit :qa!
 " Session plugin
 let g:session_autosave='yes'
 let g:session_autoload='yes'
+let g:session_autosave_periodic = 1
+let g:session_autosave_silent = 1
 
 "-----------------------
 " Airline customization
@@ -318,4 +321,6 @@ let g:formatdef_my_c_userspace = '"astyle --mode=cs --style=ansi -pcHs4"'
 let g:formatdef_my_c_kernelspace = '"astyle --mode=c --style=knf --indent=tab --align-pointer=name"'
 
 " let g:formatters_c = ['my_c_kernelspace']
+
+" Hard mode stuff
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call NoArrows()
