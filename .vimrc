@@ -17,7 +17,6 @@ Plugin 'vim-scripts/ZoomWin'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'steffanc/cscopemaps.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/taglist.vim'
@@ -149,14 +148,17 @@ let g:Tlist_WinWidth=50
 " -----------------------------------------
 "  Snippets mapping
 " -----------------------------------------
-let g:UltiSnipsExpandTrigger="~"
+let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsSnippetsDir="~/myrcs/private_snippets"
 
 " ------------------
 " YCM Configuration
 " ------------------
+" Provide a way to insert tab without completion, phew...
+inoremap <Leader><Tab> <Tab>
+
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -180,7 +182,6 @@ let g:ycm_filetype_blacklist = {
 "let g:ycm_key_list_previous_completion=[]
 "let g:ycm_key_list_select_completion = ["<C-TAB>","<Down>"]
 "let g:ycm_key_list_previous_completion = ["<C-S-TAB>", "<Up>"]
-"let g:SuperTabDefaultCompletionType = "<C-Tab>"
 
 " NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
 " so can't use remap here
