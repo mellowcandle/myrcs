@@ -34,8 +34,16 @@ Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 Plugin 'kshenoy/vim-signature'
 Plugin 'wikitopian/hardmode'
-" All of your Plugins must be added before the following line
+ " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
+" If there are any machine-specific tweaks for Vim, load them from the following file.
+try
+  source ~/.vimrc_local
+catch
+  " No such file? No problem; just ignore it.
+endtry
+
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -48,7 +56,6 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-
 set nocp
 syntax on
 filetype plugin indent on
