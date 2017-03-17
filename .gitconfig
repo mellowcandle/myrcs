@@ -1,11 +1,10 @@
 [user]
-	email = ramonx.fried@intel.com
-	name = RamonX Fried
+	email = ramon.fried@gmail.com
+	name = Ramon Fried
 [color]
 	ui = auto
 [core]
 	editor = vim
-	gitproxy = /home/ramon/common/bin/gitproxy
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
 [push]
