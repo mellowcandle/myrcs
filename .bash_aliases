@@ -15,7 +15,7 @@ case $OS in
     ;;
   'Darwin')
     OS='Mac'
-    alias ls='ls --color=auto'
+	alias ls='ls -G'
 	alias ll='ls -alvF'
  ;;
   'SunOS')
