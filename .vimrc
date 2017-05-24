@@ -26,14 +26,14 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'xolox/vim-misc'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'xolox/vim-session'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 Plugin 'kshenoy/vim-signature'
-Plugin 'wikitopian/hardmode'
+"Plugin 'wikitopian/hardmode'
  " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
