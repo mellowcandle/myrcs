@@ -33,9 +33,12 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 Plugin 'kshenoy/vim-signature'
-"Plugin 'wikitopian/hardmode'
- " All of your Plugins must be added before the following line
-call vundle#end()            " required
+Plugin 'wikitopian/hardmode'
+Plugin 'majutsushi/tagbar'
+
+" All of your Plugins must be added before the following line
+
+ call vundle#end()            " required
 
 " If there are any machine-specific tweaks for Vim, load them from the following file.
 try
@@ -108,15 +111,13 @@ map <M-Left> <C-T>
 map <M-Right> <C-]>
 
 " BufExplorer mapping
-nnoremap <silent> <F6> :BufExplorer<CR>
-nnoremap <silent> <s-F6> :ToggleBufExplorer<CR>
-nnoremap <silent> <m-F6> :BufExplorerHorizontalSplit<CR>
-nnoremap <silent> <c-F6> :BufExplorerVerticalSplit<CR>
-
+nnoremap <F2> :set invpaste paste?<CR>
+nnoremap <silent> <F6> :ToggleBufExplorer<CR>
+nmap <F7> :TagbarToggle<CR>
 map <F8> :TlistToggle<CR>
 map <F9> :Hexmode<CR>
+
 noremap <leader>st :SyntasticToggleMode<CR>
-nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 "
