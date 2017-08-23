@@ -26,7 +26,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'xolox/vim-misc'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'xolox/vim-session'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'ntpeters/vim-better-whitespace'
@@ -94,6 +94,7 @@ set nu
 
 set clipboard=unnamedplus
 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.d,*.o
 " Watch this file
 augroup myvimrc
   au!
