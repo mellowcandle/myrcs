@@ -1,5 +1,12 @@
 # List of packages to get on every new machine
-sudo apt-get install cmake ack-grep tree git manpages-dev manpages-posix-dev tmux
+sudo apt-get install cmake ack-grep tree git manpages-dev manpages-posix-dev tmux tcputils exuberant-ctags 
 
+pip maybe
 # List of customizations
-sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep 
+sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
+
+
+
+Arch installs
+
+sudo pacman -S perl-net-smtp-ssl perl-authen-sasl perl-mime-tools

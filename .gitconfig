@@ -1,5 +1,5 @@
 [user]
-	email = noamx.chen@intel.com
+	email = noam.chen@tandemg.com
 	name = Noam Chen
 [color]
 	ui = auto
@@ -10,16 +10,33 @@
 [push]
 	default = matching
 [diff]
-	tool = bc3
+	tool = vimdiff
 [difftool]
-	bc3 = trustExitCode
+	prompt = false
 [merge]
-	tool = bc3
+	tool = vimdiff
+	conflictstyle = diff3
 [mergetool]
-	bc3 = trustExitCode
-
+	prompt = false
 
 [alias]
 	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 	lg = !"git lg1"
+	s = status -s --untracked-files=no --ignore-submodules=all
+	a = add
+	c = commit -sm
+	d = diff
+	dc = diff --cached
+	p = pull
+
+	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+	subpull = !git submodule foreach git pull --tags origin master
+	unstage = reset HEAD
+	u = unstage
+
+[include]
+	path = .gitconfig.local
+
+

@@ -12,7 +12,7 @@ if [ -f ~/.git-prompt ]; then
 	source ~/.git-prompt
 fi
 
-if [ -f ~/.acd_fund ]; then
+if [ -f ~/.acd_func ]; then
 	source ~/.acd_func
 fi
 
@@ -27,8 +27,11 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoredups:erasedups
 HISTIGNORE='&:ls:ll:la:cd:exit:clear:history'
+
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -86,24 +89,15 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    #alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
+    #alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
 
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -155,16 +149,8 @@ alias gil="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 alias gig="git push aosp HEAD:refs/for/communitake"
 alias gica='git commit --amend'
 
-#vpn
-alias vpn_connect='echo 1q2w3e! | sudo openconnect -b --no-proxy -u noamx.chen@intel.com  --passwd-on-stdin -c ~/.cert/certificate.p12 --key-password-from-fsid vpn.intel.com'
-alias vpn_disconnect='sudo pkill openconnect'
-
-#simics
-alias rsm="/home/cnoam/ws/simics -e '\$coh_image=/home/cnoam/coh_rom/rom/rom.elf' /home/cnoam/ws/targets/arc-coh/coh.simics"
-alias rsr="/home/cnoam/ws/simics -e '\$coh_image=/home/cnoam/sdk3/internal/bootrom/rom/rom.elf' /home/cnoam/ws/targets/arc-coh/coh.simics"
-
-#cd
-alias cdb='cd ~/sdk3/internal/bootrom'
-
 #checkpatch
 alias chk='/usr/src/linux-headers-3.19.0-42/scripts/checkpatch.pl --notree'
+
+export PATH=~/bin:$PATH
+
