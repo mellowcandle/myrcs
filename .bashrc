@@ -133,6 +133,24 @@ fi
       export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
     fi
 
-export PATH=~/bin:$PATH
+#path variable
+export PATH=$PATH:~/toolchain/linux_install/arc_gnu_2015.06_prebuilt_elf32_le_linux_install/bin
+export PATH=$PATH:~/bin
 
+#git aliases
+alias gis='git status '
+alias gia='git add '
+alias gib='git branch '
+alias gic='git commit -s -m'
+alias gid='git diff'
+alias gco='git checkout '
+alias gin='git init'
+alias gil="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
+alias gig="git push aosp HEAD:refs/for/communitake"
+alias gica='git commit --amend'
+
+#checkpatch
+alias chk='/usr/src/linux-headers-3.19.0-42/scripts/checkpatch.pl --notree'
+
+export PATH=~/bin:$PATH
 
