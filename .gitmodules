@@ -1,0 +1,18 @@
+[submodule "extra/PathPicker"]
+	path = extra/PathPicker
+	url = https://github.com/facebook/PathPicker.git
+[submodule "extra/powerline_fonts"]
+	path = extra/powerline_fonts
+	url = https://github.com/powerline/fonts.git
+[submodule "extra/gdb-dashboard"]
+	path = extra/gdb-dashboard
+	url = https://github.com/cyrus-and/gdb-dashboard.git
+[submodule ".vim/bundle/Vundle.vim"]
+	path = .vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git
+[submodule "extra/.tmux"]
+	path = extra/.tmux
+	url = https://github.com/gpakosz/.tmux
+[submodule "extra/tmux-bash-completion"]
+	path = extra/tmux-bash-completion
+	url = https://github.com/imomaliev/tmux-bash-completion
