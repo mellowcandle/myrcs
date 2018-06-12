@@ -1,0 +1,10 @@
+[user]
+	email = ramon.fried@linaro.org
+[sendemail]
+    smtpencryption = tls
+    smtpserver = smtp.gmail.com
+    smtpuser = ramon.fried@linaro.org
+    smtpserverport = 587
+
+[include]
+	path = .linaro_password
