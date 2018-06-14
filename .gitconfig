@@ -7,6 +7,7 @@
 	editor = vim
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 	excludesfile = ~/.gitignore
+	gitproxy = /home/lab_cvgv/bin/gitproxy
 [push]
 	default = matching
 [diff]
@@ -29,14 +30,11 @@
 	d = diff
 	dc = diff --cached
 	p = pull
-
+	w = whatchanged
 	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
 	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
 	subpull = !git submodule foreach git pull --tags origin master
 	unstage = reset HEAD
 	u = unstage
-
-[include]
-	path = ~/myrcs/.gitconfig_linaro
 
 

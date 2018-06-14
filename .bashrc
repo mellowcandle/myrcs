@@ -191,3 +191,5 @@ function mgrep()
         -exec grep --color -n "$@" {} +
 }
 
+alias gsr='git --no-pager show -s --abbrev-commit --abbrev=12 --pretty=format:"%h (\"%s\")%n"'
+
