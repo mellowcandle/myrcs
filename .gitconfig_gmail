@@ -1,0 +1,12 @@
+[user]
+    email = ramon.fried@gmail.com
+
+[sendemail]
+    smtpencryption = tls
+    smtpserver = smtp.gmail.com
+    smtpuser = ramon.fried@gmail.com
+    smtpserverport = 587
+
+[include]
+    path = ~/.gmail_password
+

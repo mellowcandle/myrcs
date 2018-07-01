@@ -8,7 +8,7 @@
 
 dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old             # old dotfiles backup directory
-files=".tmux.conf .bashrc .bash_aliases .bash_arch .gitignore .gitconfig .vimrc .vim .git-prompt .acd_func .pwclientrc"    # list of files/folders to symlink in homedir
+files=".tmux.conf .bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .gitconfig_intel .vimrc .vim .git-prompt .acd_func .pwclientrc"    # list of files/folders to symlink in homedir
 
 
 mkdir -p ~/bin
