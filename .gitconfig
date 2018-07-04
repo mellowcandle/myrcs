@@ -37,6 +37,6 @@
 	u = unstage
 
 [include]
-	path = .gitconfig_gmail
-#	path = .gitconfig_intel
+#	path = .gitconfig_gmail
+	path = .gitconfig_intel
 

@@ -1,0 +1,30 @@
+[user]
+	email = ramon.fried@intel.com
+
+[core]
+	gitproxy = /home/lab_cvgv/bin/gitproxy
+
+[sendemail]
+    smtpencryption = tls
+    smtpserver = smtp.intel.com
+    smtpuser = ramon.fried@intel.com
+    smtpserverport = 587
+
+[url "ssh://icggerrit.iil.intel.com:29418/"]
+	insteadOf = ssh://icggerrit.corp.intel.com:29418/
+	insteadOf = ssh://icggerrit:29418/
+[url "ssh://icggerrit.corp.intel.com:29418/"]
+	pushInsteadOf = ssh://icggerrit.corp.intel.com:29418/
+	pushInsteadOf = ssh://icggerrit:29418/
+[url "ssh://rfried@icggerrit.iil.intel.com:29418/"]
+	insteadOf = ssh://rfried@icggerrit.corp.intel.com:29418/
+[url "ssh://rfried@icggerrit.corp.intel.com:29418/"]
+	pushInsteadOf = ssh://rfried@icggerrit.corp.intel.com:29418/
+[url "https://icggerrit.iil.intel.com/"]
+	insteadOf = https://icggerrit.corp.intel.com/
+[url "https://icggerrit.corp.intel.com/"]
+	pushInsteadOf = https://icggerrit.corp.intel.com/
+[url "https://rfried@icggerrit.iil.intel.com/"]
+	insteadOf = https://rfried@icggerrit.corp.intel.com/
+[url "https://rfried@icggerrit.corp.intel.com/"]
+	pushInsteadOf = https://rfried@icggerrit.corp.intel.com/
