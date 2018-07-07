@@ -1,3 +1,4 @@
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -19,7 +20,6 @@ Plugin 'steffanc/cscopemaps.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
-Plugin 'vim-scripts/taglist.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'vim-airline/vim-airline'
@@ -82,51 +82,45 @@ set shiftwidth=4
 set noexpandtab
 set hlsearch
 set smarttab
-"set incsearch
-
 set ignorecase
 set smartcase
 set backspace=indent,eol,start
-"set autoindent
 set nostartofline
 set ruler
 set laststatus=2
 set showmatch
 set matchtime=5
-
-" if has('mouse')
-" 	set mouse=a " all mode
-" 	set mousehide " hide mouse when typing
-" endif
 set cmdheight=2
 set nu
-"set textwidth=80
-
 set clipboard=unnamedplus
-
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.d,*.o
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
-"
-
-" Watch this file
-"augroup myvimrc
-"  au!
-"  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-"augroup END
-"
 set nobackup
 set nowb
 set noswapfile
+set showmode
 
+" command :W sudo saves the file
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+"
+" Quit with :Q
+command -nargs=0 Quit :qa!
+
+"
+
+" Watch this file
+augroup myvimrc
+  au!
+  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+"
 au BufRead,BufNewFile *.s set filetype=nasm
 
 " My mappings
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>mru :CtrlPMRU
 map <C-n> :NERDTreeToggle<CR>
+map <F8> :SyntasticCheck<CR>
 " Back and forward in tags
 map <M-Left> <C-T>
 map <M-Right> <C-]>
@@ -135,12 +129,10 @@ map <M-Right> <C-]>
 nnoremap <F2> :set invpaste paste?<CR>
 nnoremap <silent> <F6> :ToggleBufExplorer<CR>
 nmap <F7> :TagbarToggle<CR>
-map <F8> :TlistToggle<CR>
 map <F9> :Hexmode<CR>
 
 noremap <leader>st :SyntasticToggleMode<CR>
 set pastetoggle=<F2>
-set showmode
 "
 " Automatic tag loading
 set tags=./tags;/
@@ -156,6 +148,11 @@ function! LoadCscope()
   endfunction
 
 au BufEnter /* call LoadCscope()
+
+" -------------------------------------
+" .h file should be treated as c files.
+" -------------------------------------
+let g:c_syntax_for_h = 1
 
 " ----------------------------------------
 " Enhanced commentify binding and settings
@@ -173,7 +170,7 @@ let g:EnhCommentifyBindInInsert = 'no'
 "  Default size for NerdTree and Taglist
 " -----------------------------------------
 let g:NERDTreeWinSize=50
-let g:Tlist_WinWidth=50
+"let g:Tlist_WinWidth=50
 
 " -----------------------------------------
 "  Snippets mapping
@@ -210,7 +207,7 @@ let g:ycm_filetype_blacklist = {
 " -------------------------------------------
 "let g:ycm_key_list_select_completion=[]
 "let g:ycm_key_list_previous_completion=[]
-"let g:ycm_key_list_select_completion = ["<C-TAB>","<Down>"]
+"let g:ycm_key_list_select_completion = ["<C-TAB>", "<Down>"]
 "let g:ycm_key_list_previous_completion = ["<C-S-TAB>", "<Up>"]
 
 " NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
@@ -273,16 +270,16 @@ endfunction
 "------------------
 " Syntactic stuff
 " -----------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:statline_syntastic = 0
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'mode': 'passive' }
+
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_c_checkers = ['gcc', 'checkpatch']
+let g:syntastic_cpp_checkers = ['gcc' ]
+
 "--------------------------
 " Remove trailing whitespace
 " --------------------------
@@ -305,9 +302,7 @@ let NERDTreeIgnore+=['.*\.d$']
 let NERDTreeIgnore+=['.*\~$']
 let NERDTreeIgnore+=['.*\.out$']
 let NERDTreeIgnore+=['.*\.so$', '.*\.a$']
-" Quit with :Q
-command -nargs=0 Quit :qa!
-
+"
 
 " Session plugin
 let g:session_autosave='yes'
@@ -319,7 +314,11 @@ let g:session_autosave_silent = 1
 " Airline customization
 " ----------------------
 let g:airline_powerline_fonts = 1
-
+let g:airline#extensions#syntastic#enabled = 1
+let airline#extensions#syntastic#error_symbol = 'E:'
+let airline#extensions#syntastic#stl_format_err = '%E{[%e(#%fe)]}'
+let airline#extensions#syntastic#warning_symbol = 'W:'
+let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
 "-----------------------
 " Ctrl-p customization
 " ----------------------
@@ -355,3 +354,13 @@ let g:formatdef_my_c_kernelspace = '"astyle --mode=c --style=knf --indent=tab --
 
 " Hard mode stuff
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call NoArrows()
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Persistent undo
+try
+    set undodir=~/.vim_runtime/temp_dirs/undodir
+    set undofile
+catch
+endtry
