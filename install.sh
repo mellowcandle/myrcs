@@ -46,9 +46,6 @@ ln -s -f $dir/extra/.tmux/.tmux.conf ~/.tmux.conf
 cp $dir/extra/.tmux/.tmux.conf.local ~/
 
 ln -s $dir/extra/tmux-bash-completion/completions/tmux /etc/bash_completions.d/tmux
-# Install Checkpatch
-wget -P ~/bin/ https://github.com/torvalds/linux/blob/master/scripts/checkpatch.pl
-chmod +x ~/bin/checkpatch.pl
 
 curl -o ~/bin/pwclient -J -L http://patchwork.ozlabs.org/pwclient/
 chmod +x ~/bin/pwclient
