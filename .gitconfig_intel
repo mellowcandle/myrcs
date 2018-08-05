@@ -2,7 +2,7 @@
 	email = ramon.fried@intel.com
 
 [core]
-	gitproxy = /home/lab_cvgv/bin/gitproxy
+	gitproxy = /home/rfried/bin/gitproxy
 
 [sendemail]
     smtpencryption = tls
