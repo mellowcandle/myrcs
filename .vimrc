@@ -35,6 +35,8 @@ Plugin 'kshenoy/vim-signature'
 Plugin 'wikitopian/hardmode'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/mru.vim'
+Plugin 'vivien/vim-linux-coding-style'
+
 
 let db = findfile(".ycm_extra_conf.py", ".;")
 if (!empty(db))
@@ -76,9 +78,9 @@ colorscheme monokai
 set wildmenu
 set showcmd
 syn on se title
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=8
+set softtabstop=8
+set shiftwidth=8
 set noexpandtab
 set hlsearch
 set smarttab
@@ -93,7 +95,7 @@ set matchtime=5
 set cmdheight=2
 set nu
 set clipboard=unnamedplus
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.d,*.o
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.d,*.o,*.dtb
 set nobackup
 set nowb
 set noswapfile
@@ -119,8 +121,9 @@ au BufRead,BufNewFile *.s set filetype=nasm
 " My mappings
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>mru :CtrlPMRU
+nnoremap <silent> <leader>l :LinuxCodingStyle<cr>
 map <C-n> :NERDTreeToggle<CR>
-map <F8> :SyntasticCheck<CR>
+"map <F8> :SyntasticCheck<CR>
 " Back and forward in tags
 map <M-Left> <C-T>
 map <M-Right> <C-]>
@@ -131,7 +134,6 @@ nnoremap <silent> <F6> :ToggleBufExplorer<CR>
 nmap <F7> :TagbarToggle<CR>
 map <F9> :Hexmode<CR>
 
-noremap <leader>st :SyntasticToggleMode<CR>
 set pastetoggle=<F2>
 "
 " Automatic tag loading
@@ -148,6 +150,20 @@ function! LoadCscope()
   endfunction
 
 au BufEnter /* call LoadCscope()
+
+
+function! ToggleSyntastic()
+    for i in range(1, winnr('$'))
+        let bnum = winbufnr(i)
+        if getbufvar(bnum, '&buftype') == 'quickfix'
+            lclose
+            return
+        endif
+    endfor
+    SyntasticCheck
+endfunction
+
+nnoremap <F8> :call ToggleSyntastic()<CR>
 
 " -------------------------------------
 " .h file should be treated as c files.
@@ -277,8 +293,9 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'mode': 'passive' }
 
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_c_checkers = ['gcc', 'checkpatch']
-let g:syntastic_cpp_checkers = ['gcc' ]
+let g:syntastic_c_checkers = ['checkpatch']
+let g:syntastic_c_checkpatch_args = "--strict"
+"let g:syntastic_cpp_checkers = ['gcc' ]
 
 "--------------------------
 " Remove trailing whitespace
@@ -324,6 +341,7 @@ let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
 " ----------------------
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_max_files = 100000
 
 " Python stuff
 " nnoremap <silent> <F5> :!clear;python %<CR>
