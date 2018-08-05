@@ -1,10 +1,13 @@
 # List of packages to get on every new machine
-sudo apt-get install cmake ack-grep tree git manpages-dev manpages-posix-dev tmux tcputils exuberant-ctags minicom
+sudo apt-get install cmake ack-grep tree git manpages-dev manpages-posix-dev tmux tcputils exuberant-ctags minicom vim curl u-boot-tools p7zip-full device-tree-compiler python-pip flex bison cscope astyle
 
 pip maybe
 # List of customizations
 sudo dpkg-divert --local --divert /usr/bin/ack --rename --add /usr/bin/ack-grep
 
+
+Ubuntu:
+gsettings set org.gnome.nautilus.preferences always-use-location-entry true
 
 
 Arch installs
