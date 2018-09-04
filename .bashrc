@@ -145,10 +145,6 @@ fi
 
 export PATH=~/bin:$PATH
 
-alias cscope_create='find . -name "*.[csh]" >> cscope.files;cscope -b -q'
-alias cscope_create_kernel='find . -name "*.[csh]" >> cscope.files;cscope -b -q -k'
-alias download='curl -O -J -L'
-
 function cgrep()
 {
     find . -name .repo -prune -o -name .git -prune -o -name out -prune -o -type f \( -name '*.c' -o -name '*.cc' -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp' \) \
@@ -191,5 +187,18 @@ function mgrep()
         -exec grep --color -n "$@" {} +
 }
 
-alias gsr='git --no-pager show -s --abbrev-commit --abbrev=12 --pretty=format:"%h (\"%s\")%n"'
+function github_latest_release()
+{
+	curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
+}
 
+alias gsr='git --no-pager show -s --abbrev-commit --abbrev=12 --pretty=format:"%h (\"%s\")%n"'
+alias cdw='cd ~/dev'
+alias groot='cd $(git root)'
+alias cat='bat'
+alias cscope_create='find . -name "*.[csh]" >> cscope.files;cscope -b -q'
+alias cscope_create_kernel='find . -name "*.[csh]" >> cscope.files;cscope -b -q -k'
+alias download='curl -O -J -L'
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
