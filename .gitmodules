@@ -16,3 +16,12 @@
 [submodule "extra/tmux-bash-completion"]
 	path = extra/tmux-bash-completion
 	url = https://github.com/imomaliev/tmux-bash-completion
+[submodule "extra/fzf"]
+	path = extra/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "extra/tldr-pages"]
+	path = extra/tldr-pages
+	url = https://github.com/tldr-pages/tldr.git
+[submodule "extra/diff-so-fancy"]
+	path = extra/diff-so-fancy
+	url = https://github.com/so-fancy/diff-so-fancy.git

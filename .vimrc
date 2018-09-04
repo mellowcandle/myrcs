@@ -29,13 +29,12 @@ Plugin 'xolox/vim-session'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'LucHermitte/lh-vim-lib'
-Plugin 'LucHermitte/local_vimrc'
 Plugin 'kshenoy/vim-signature'
 Plugin 'wikitopian/hardmode'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/mru.vim'
 Plugin 'vivien/vim-linux-coding-style'
+Plugin 'embear/vim-localvimrc'
 
 
 let db = findfile(".ycm_extra_conf.py", ".;")
@@ -78,7 +77,7 @@ colorscheme monokai
 set wildmenu
 set showcmd
 syn on se title
-set tabstop=8
+set tabstop=4
 set softtabstop=8
 set shiftwidth=8
 set noexpandtab
@@ -289,7 +288,7 @@ endfunction
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
 let g:syntastic_mode_map = { 'mode': 'passive' }
 
 let g:syntastic_aggregate_errors = 1
@@ -343,12 +342,6 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_max_files = 100000
 
-" Python stuff
-" nnoremap <silent> <F5> :!clear;python %<CR>
-nnoremap <F5> :silent :make -j8 <CR>:redr!<CR>
-nnoremap <C-F5> :make clean && make -j8 <CR>:redr!<CR>
-nnoremap <F4> :silent !./start_new_kernel.sh<CR>:redr!<CR>
-nnoremap <C-F4> :!./start_new_kernel.sh -d<CR>:redr!<CR>
 "-----------------------
 " auto-format customization
 " ----------------------

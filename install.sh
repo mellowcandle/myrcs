@@ -37,6 +37,7 @@ done
 ln -s -f $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
 # Install filepicker
 ln -s -f $dir/extra/PathPicker/fpp ~/bin/fpp
+ln -s -f $dir/extra/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
 
 ln -s -f $dir/extra/tmux-vim-select-pane /bin/tmux-vim-select-pane
 ln -s -f $dir/extra/pastebin.py /bin/pastebin
