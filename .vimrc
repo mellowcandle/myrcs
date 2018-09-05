@@ -163,6 +163,13 @@ function! ToggleSyntastic()
 endfunction
 
 nnoremap <F8> :call ToggleSyntastic()<CR>
+"
+" -------------------------------------
+" Local vimrc settings
+" -------------------------------------
+let g:localvimrc_sandbox = 0
+let g:localvimrc_ask = 0
+
 
 " -------------------------------------
 " .h file should be treated as c files.
