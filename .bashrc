@@ -30,7 +30,6 @@ HISTFILESIZE=2000
 HISTCONTROL=ignoredups:erasedups
 HISTIGNORE='&:ls:ll:la:cd:exit:clear:history'
 EDITOR=vim
-TERM=xterm-256color
 
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
@@ -51,9 +50,11 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
+#case "$TERM" in
+#    xterm-color) color_prompt=yes;;
+#esac
+
+color_prompt=yes;
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
