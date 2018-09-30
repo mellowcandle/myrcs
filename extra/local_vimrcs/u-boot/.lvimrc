@@ -1,14 +1,42 @@
 set wildignore+=*.ko,*.mod.c,*.order,modules.builtin
-setlocal tabstop=8
-setlocal shiftwidth=8
-setlocal softtabstop=8
-setlocal textwidth=80
-setlocal noexpandtab
 
-setlocal cindent
-setlocal cinoptions=:0,l1,t0,g0,(0
+function! s:LinuxConfigure()
+	setlocal tabstop=8
+	setlocal shiftwidth=8
+	setlocal softtabstop=8
+	"setlocal textwidth=80
+	setlocal noexpandtab
 
-syn keyword cOperator likely unlikely
-syn keyword cType u8 u16 u32 u64 s8 s16 s32 s64
-syn keyword cType __u8 __u16 __u32 __u64 __s8 __s16 __s32 __s64
+	setlocal cindent
+	setlocal cinoptions=:0,l1,t0,g0,(0
+
+	syn keyword cOperator likely unlikely
+	syn keyword cType u8 u16 u32 u64 s8 s16 s32 s64
+	syn keyword cType __u8 __u16 __u32 __u64 __s8 __s16 __s32 __s64
+
+""	let &makeprg='(make -C /home/rfried/dev/mbly2/open_src/eq5/ linux)'
+
+	highlight default link LinuxError ErrorMsg
+
+	syn match LinuxError / \+\ze\t/     " spaces before tab
+	syn match LinuxError /\%>80v[^()\{\}\[\]<>]\+/ " virtual column 81 and more
+
+	" Highlight trailing whitespace, unless we're in insert mode and the
+	" cursor's placed right after the whitespace. This prevents us from having
+	" to put up with whitespace being highlighted in the middle of typing
+	" something
+	autocmd InsertEnter * match LinuxError /\s\+\%#\@<!$/
+	autocmd InsertLeave * match LinuxError /\s\+$/
+	nnoremap <F5>  :make<bar>copen<CR>
+endfunction
+
+augroup linuxsty
+    autocmd!
+
+    autocmd FileType c,cpp call s:LinuxConfigure()
+    autocmd FileType diff setlocal ts=8
+    autocmd FileType kconfig setlocal ts=8 sw=8 sts=8 noet
+    autocmd FileType dts setlocal ts=8 sw=8 sts=8 noet
+augroup END
+
 
