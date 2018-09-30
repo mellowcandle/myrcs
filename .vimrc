@@ -30,7 +30,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'kshenoy/vim-signature'
-Plugin 'wikitopian/hardmode'
+"Plugin 'wikitopian/hardmode'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/mru.vim'
 Plugin 'vivien/vim-linux-coding-style'
@@ -53,6 +53,8 @@ catch
   " No such file? No problem; just ignore it.
 endtry
 
+set term=screen-256color
+
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -69,6 +71,7 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nowrap
 
 set nocp
 syntax on
