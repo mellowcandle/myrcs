@@ -12,4 +12,4 @@ gsettings set org.gnome.nautilus.preferences always-use-location-entry true
 
 Arch installs
 
-sudo pacman -S perl-net-smtp-ssl perl-authen-sasl perl-mime-tools ctags cscope gvim git tmux base-devel minicom xsel
+sudo pacman -S perl-net-smtp-ssl perl-authen-sasl perl-mime-tools ctags cscope gvim git tmux base-devel minicom xsel bat
