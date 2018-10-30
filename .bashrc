@@ -201,5 +201,5 @@ alias cscope_create='find . -name "*.[csh]" >> cscope.files;cscope -b -q'
 alias cscope_create_kernel='find . -name "*.[csh]" >> cscope.files;cscope -b -q -k'
 alias download='curl -O -J -L'
 
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+alias whatsmyip='curl -s http://whatismyip.akamai.com/'
