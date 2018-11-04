@@ -135,6 +135,7 @@ let g:EnhCommentifyBindInInsert = 'no'
 "  Default size for NerdTree and Taglist
 " -----------------------------------------
 let g:NERDTreeWinSize=50
+let g:NERDTreeHijackNetrw=0
 "let g:Tlist_WinWidth=50
 
 " -----------------------------------------
