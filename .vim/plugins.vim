@@ -31,8 +31,8 @@ Plugin 'wikitopian/hardmode'
 Plugin 'majutsushi/tagbar'
 Plugin 'vivien/vim-linux-coding-style'
 Plugin 'embear/vim-localvimrc'
-
-
+Plugin 'tpope/vim-vinegar.git'
+Plugin 'rking/ag.vim'
 let db = findfile(".ycm_extra_conf.py", ".;")
 if (!empty(db))
 	Plugin 'Valloric/YouCompleteMe'
