@@ -15,7 +15,7 @@ set term=screen-256color
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nowrap
-
+set hidden
 set nocp
 syntax on
 filetype plugin indent on
