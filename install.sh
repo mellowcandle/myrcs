@@ -12,6 +12,7 @@ files=".tmux.conf .bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitcon
 
 
 mkdir -p ~/bin
+mkdir -p ~/.vim_runtime/temp_dirs/undodir
 ##########
 
 # create dotfiles_old in homedir
