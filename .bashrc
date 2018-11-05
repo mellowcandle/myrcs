@@ -193,6 +193,11 @@ function github_latest_release()
 	curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
 }
 
+function fixup()
+{
+    EDITOR=true git commit --fixup $1 && git rebase -i $1~ --autosquash
+}
+
 alias gsr='git --no-pager show -s --abbrev-commit --abbrev=12 --pretty=format:"%h (\"%s\")%n"'
 alias cdw='cd ~/dev'
 alias groot='cd $(git root)'
