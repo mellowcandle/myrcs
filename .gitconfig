@@ -58,3 +58,5 @@
 	whitespace = red reverse
 [rebase]
 	autosquash = true
+[credential]
+	helper = store
