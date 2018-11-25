@@ -1,3 +1,4 @@
+
 set nocompatible              " be iMproved, required
 
 if filereadable(expand("~/.vim/plugins.vim"))
@@ -40,7 +41,7 @@ set matchtime=5
 set cmdheight=2
 set nu
 set clipboard=unnamedplus
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.d,*.o,*.dtb
+set wildignore=*.so,*.swp,*.zip,*.d,*.o,*.dtb
 set nobackup
 set nowb
 set noswapfile
@@ -53,8 +54,6 @@ command! W w !sudo tee % > /dev/null
 " Quit with :Q
 command! -nargs=0 Quit :qa!
 
-"
-
 " Watch this file
 augroup myvimrc
   au!
@@ -65,7 +64,6 @@ au BufRead,BufNewFile *.s set filetype=nasm
 
 " My mappings
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>mru :CtrlPMRU
 nnoremap <silent> <leader>l :LinuxCodingStyle<cr>
 map <C-n> :NERDTreeToggle<CR>
 " Back and forward in tags
@@ -79,9 +77,9 @@ nmap	 <F7> :TagbarToggle<CR>
 nnoremap <F8> :call ToggleSyntastic()<CR>
 
 set pastetoggle=<F2>
-"
+
 " Automatic tag loading
-set tags=./tags;/
+set tags=./tags;
 
 function! LoadCscope()
   let db = findfile("cscope.out", ".;")
@@ -246,6 +244,19 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_max_files = 100000
 
 "-----------------------
+" ack.vim customization
+" ----------------------
+
+" Use AG if available
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" Don't jump to first result automatically  
+cnoreabbrev Ack Ack!
+noremap <Leader>a :Ack!<cr>
+let g:ack_use_dispatch = 1
+"-----------------------
 " auto-format customization
 " ----------------------
 
@@ -265,9 +276,6 @@ let g:formatdef_my_c_userspace = '"astyle --mode=cs --style=ansi -pcHs4"'
 let g:formatdef_my_c_kernelspace = '"astyle --mode=c --style=knf --indent=tab --align-pointer=name"'
 
 " let g:formatters_c = ['my_c_kernelspace']
-
-" Hard mode stuff
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call NoArrows()
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
