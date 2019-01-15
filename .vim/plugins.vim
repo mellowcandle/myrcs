@@ -35,6 +35,8 @@ Plugin 'tpope/vim-vinegar.git'
 Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'airblade/vim-rooter'
+Plugin 'vim-scripts/VisIncr'
+Plugin 'vim-scripts/YankRing.vim'
 
 let db = findfile(".ycm_extra_conf.py", ".;")
 if (!empty(db))

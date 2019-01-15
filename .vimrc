@@ -75,6 +75,7 @@ nnoremap <F3> :CtrlPMRUFiles<CR>
 nnoremap <silent> <F6> :ToggleBufExplorer<CR>
 nmap	 <F7> :TagbarToggle<CR>
 nnoremap <F8> :call ToggleSyntastic()<CR>
+nnoremap <silent> <F11> :YRShow<CR>
 
 set pastetoggle=<F2>
 
@@ -194,7 +195,7 @@ let g:syntastic_mode_map = { 'mode': 'passive' }
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_c_checkers = ['checkpatch']
-let g:syntastic_c_checkpatch_args = "--strict"
+"let g:syntastic_c_checkpatch_args = "--strict"
 "let g:syntastic_cpp_checkers = ['gcc' ]
 
 "--------------------------
@@ -239,7 +240,7 @@ let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
 "-----------------------
 " Ctrl-p customization
 " ----------------------
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<c-;>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_max_files = 100000
 
