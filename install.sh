@@ -33,6 +33,18 @@ for file in $files; do
     ln -s $dir/$file ~/$file
 done
 
+# Build and install cscope
+mkdir tmp
+cd tmp
+curl -O -J -L https://github.com/mellowcandle/cscope/archive/master.zip
+unzip cscope-master.zip
+cd cscope-master
+autoreconf -i
+./configure
+make -j8
+sudo make install
+cd ../..
+rm -rf tmp
 
 # .gdbinit is in a special directory
 ln -s -f $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
