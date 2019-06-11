@@ -10,7 +10,7 @@ if filereadable(expand("~/.vimrc_local"))
   source ~/.vimrc_local
 endif
 
-set term=screen-256color
+"set term=screen-256color
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -46,6 +46,8 @@ set nobackup
 set nowb
 set noswapfile
 set showmode
+set nocscopeverbose
+set spelllang=en
 
 " command :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -65,13 +67,13 @@ au BufRead,BufNewFile *.s set filetype=nasm
 " My mappings
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <silent> <leader>l :LinuxCodingStyle<cr>
-map <C-n> :NERDTreeToggle<CR>
 " Back and forward in tags
 map <M-Left> <C-T>
 map <M-Right> <C-]>
 
 nnoremap <F2> :set invpaste paste?<CR>
 nnoremap <F3> :CtrlPMRUFiles<CR> 
+nnoremap <F4> :NERDTreeToggle<CR>
 nnoremap <silent> <F6> :ToggleBufExplorer<CR>
 nmap	 <F7> :TagbarToggle<CR>
 nnoremap <F8> :call ToggleSyntastic()<CR>
@@ -143,7 +145,7 @@ let g:NERDTreeHijackNetrw=0
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsSnippetsDir="~/myrcs/private_snippets"
+let g:UltiSnipsSnippetDirectories=["/home/rfried/myrcs/private_snippets"]
 
 " ------------------
 " YCM Configuration

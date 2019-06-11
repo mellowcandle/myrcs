@@ -1,6 +1,7 @@
 [user]
-	email = ramon.fried@gmail.com
+	email = rfried.dev@gmail.com
 	name = Ramon Fried
+	signingkey = 5694787D73A8F87D
 [color]
 	ui = true
 [core]
@@ -41,8 +42,8 @@
 	root = rev-parse --show-toplevel
 
 [include]
-#	path = .gitconfig_gmail
-	path = .gitconfig_intel
+	path = .gitconfig_gmail
+#	path = .gitconfig_intel
 
 [color "diff-highlight"]
 	oldNormal = red bold

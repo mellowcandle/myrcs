@@ -1,10 +1,10 @@
 [user]
-    email = ramon.fried@gmail.com
+    email = rfried.dev@gmail.com
 
 [sendemail]
     smtpencryption = tls
     smtpserver = smtp.gmail.com
-    smtpuser = ramon.fried@gmail.com
+    smtpuser = rfried.dev@gmail.com
     smtpserverport = 587
 
 [include]
