@@ -22,3 +22,6 @@
 [submodule "extra/diff-so-fancy"]
 	path = extra/diff-so-fancy
 	url = https://github.com/so-fancy/diff-so-fancy.git
+[submodule "extra/autojump"]
+	path = extra/autojump
+	url = https://github.com/wting/autojump.git
