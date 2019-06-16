@@ -1,0 +1,148 @@
+set realname = "Ramon Fried"
+set from = "rfried.dev@gmail.com"
+set use_from = yes
+set envelope_from = yes
+
+set smtp_url = "smtps://rfried@gmail.com@smtp.gmail.com:465/"
+set smtp_pass = "<PASSWORD>"
+set imap_user = "rfried.dev@gmail.com"
+set imap_pass = "<PASSWORD>"
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set ssl_force_tls = yes
+set postponed = +[Gmail]/Drafts
+unset imap_passive
+set imap_keepalive = 300
+set mail_check = 120
+set sidebar_visible = yes
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+
+set imap_check_subscribed
+
+set sort=threads
+set sort_browser=date
+set sort_aux=reverse-last-date-received
+
+set header_cache = ~/.cache/mutt
+
+# G to get mail
+bind index G imap-fetch-mail
+set editor = "vim"
+set charset = "utf-8"
+set record = ''
+
+# Some VI bindings
+bind pager j next-line
+bind pager k previous-line
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+bind pager g top
+bind pager G bottom
+bind attach,index g first-entry
+bind attach,index G last-entry
+
+# Other bindings
+bind index,pager B sidebar-toggle-visible
+
+# Folder navigation
+bind index,pager \CP sidebar-prev       # Ctrl-Shift-P - Previous Mailbox
+bind index,pager \CN sidebar-next       # Ctrl-Shift-N - Next Mailbox
+bind index,pager \CO sidebar-open       # Ctrl-Shift-O - Open Highlighted Mailbox
+
+# Some colors
+
+# Mutt color file
+# Maintainer: Jon Häggblad <jon@haeggblad.com>
+# URL: http://www.haeggblad.com
+# Last Change: 2013 May 17
+# Version: 0.1
+#
+# Mutt colorscheme loosely inspired by vim colorscheme wombat.vim.
+#
+# Changelog: 
+#   0.1 - Initial version
+
+
+# --- vombatidae text colors ---
+#  color normal		color230      color234
+#  color message      	color230      color234 
+
+# --- slightly less yellow text colors ---
+color normal		color253	color234 # mod
+# color normal		color253	color233 # mod
+#  color normal		color253	default # mod
+color indicator    	color230     	color238
+color status       	color101     	color16
+#  color tree         	color113      	color234 
+#  color tree         	color173      	color234 
+color tree         	color208      	color234 
+color signature    	color102      	color234 
+color message      	color253      	color234 
+color attachment	color117      	color234 
+color error        	color30      	color234 
+color tilde        	color130     	color235 
+
+color search       color100     default 
+color markers      color138     default 
+
+#  mono bold          reverse
+#  color bold         color173 color191
+#  mono underline     reverse
+#  color underline    color48  color191
+
+color quoted        color107     color234             # quoted text
+color quoted1       color66      color234
+color quoted2       color32      color234
+color quoted3       color30      color234
+color quoted4       color99      color234
+color quoted5       color36      color234
+color quoted6       color114     color234
+color quoted7       color109     color234
+color quoted8       color41      color234
+color quoted9       color138     color234
+
+# color body          cyan  default  "((ftp|http|https)://|news:)[^ >)\"\t]+"
+# color body          cyan  default  "[-a-z_0-9.+]+@[-a-z_0-9.]+"
+# color body          red   default  "(^| )\\*[-a-z0-9*]+\\*[,.?]?[ \n]"
+# color body          green default  "(^| )_[-a-z0-9_]+_[,.?]?[\n]"
+# color body          red   default  "(^| )\\*[-a-z0-9*]+\\*[,.?]?[ \n]"
+# color body          green default  "(^| )_[-a-z0-9_]+_[,.?]?[ \n]"
+color index		color202	color234  ~F         # Flagged
+color index         	color39     	color234  ~N          # New
+color index         	color39     	color234  ~O         
+color index         	color229     	color22  ~T         # Tagged
+color index         	color240     	color234  ~D         # Deleted
+
+# ---
+
+#mono body	reverse		'^(subject):.*'
+#color body	brightwhite magenta	'^(subject):.*'
+#mono body	reverse		'[[:alpha:]][[:alnum:]-]+:'
+#color body	black cyan	'[[:alpha:]][[:alnum:]-]+:'
+
+# --- header ---
+
+color hdrdefault 	color30    	color233 
+color header		color132    	color233    '^date:'
+color header		color153    	color233    '^(to|cc|bcc):'
+color header		color120    	color233    '^from:'
+color header		color178    	color233    '^subject:'
+color header    	color31     	color233    '^user-agent:'
+color header		color29     	color233    '^reply-to:'
+
+#color header	magenta default '^(status|lines|date|received|sender|references):'
+#color header	magenta default '^(pr|mime|x-|user|return|content-)[^:]*:'
+#color header	brightyellow default '^content-type:'
+#color header	magenta default '^content-type: *text/plain'
+# color header	brightgreen default '^list-[^:]*:'
+#mono  header    bold	            '^(subject):.*$'
+#color header	brightcyan default	'^(disposition)'
+#color header	green default	'^(mail-)?followup'
+#color header	white default	'^reply'
+#color header	brightwhite default	'^(resent)'
+# color header	brightwhite default	'^from:'
+
+#mono index	bold '~h "^content-type: *(multipart/(mixed|signed|encrypted)|application/)"'
+#color index	green black '~h "^content-type: *multipart/(signed|encrypted)"'
+
+#color sidebar_new color39 color234
