@@ -5,8 +5,12 @@ pip maybe
 
 Ubuntu:
 gsettings set org.gnome.nautilus.preferences always-use-location-entry true
+gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 
-
-Arch installs
-
+*Arch installs*
 sudo pacman -S perl-net-smtp-ssl perl-authen-sasl perl-mime-tools ctags  gvim git tmux base-devel minicom xsel bat the_silver_searcher
+
+*Fedora install*
+sudo dnf install cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-pages dtc python-pip flex bison astyle autoconf automake ncurses-devel uboot-tools
+sudo dnf module install bat 
+
