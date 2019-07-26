@@ -56,6 +56,8 @@ command! W w !sudo tee % > /dev/null
 " Quit with :Q
 command! -nargs=0 Quit :qa!
 
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
 " Watch this file
 augroup myvimrc
   au!
