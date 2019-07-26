@@ -108,7 +108,12 @@ function! ToggleSyntastic()
     SyntasticCheck
 endfunction
 
-"
+" Abbreviations
+iabbrev @@ Ramon Fried <rfried.dev@gmail.com>
+iabbrev rby Reviewed-By: Ramon Fried <rfried.dev@gmail.com>
+iabbrev aby Acked-By: Ramon Fried <rfried.dev@gmail.com>
+iabbrev tby Tested-By: Ramon Fried <rfried.dev@gmail.com>
+
 " -------------------------------------
 " Local vimrc settings
 " -------------------------------------
