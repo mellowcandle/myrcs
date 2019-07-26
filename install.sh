@@ -7,10 +7,28 @@
 ########## Variables
 
 dir=$PWD                    # dotfiles directory
-olddir=~/.dotfiles_old             # old dotfiles backup directory
+olddir=~/.dotfiles_old      # old dotfiles backup directory
 files=".tmux.conf .bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .gitconfig_intel .vimrc .vim .git-prompt .acd_func .pwclientrc"    # list of files/folders to symlink in homedir
 
 
+# Detect the current distrubution we're in:
+arch=$(uname -m)
+kernel=$(uname -r)
+if [ -n "$(command -v lsb_release)" ]; then
+	distroname=$(lsb_release -s -d)
+elif [ -f "/etc/os-release" ]; then
+	distroname=$(grep PRETTY_NAME /etc/os-release | sed 's/PRETTY_NAME=//g' | tr -d '="')
+elif [ -f "/etc/debian_version" ]; then
+	distroname="Debian $(cat /etc/debian_version)"
+elif [ -f "/etc/redhat-release" ]; then
+	distroname=$(cat /etc/redhat-release)
+else
+	distroname="$(uname -s) $(uname -r)"
+fi
+
+echo "Running on: $distroname"
+
+exit
 mkdir -p ~/bin
 mkdir -p ~/.vim_runtime/temp_dirs/undodir
 ##########
@@ -33,7 +51,7 @@ for file in $files; do
     ln -s $dir/$file ~/$file
 done
 
-# Build and install cscope
+# Build and install cscope (my version becuase upstream is shit) */
 mkdir tmp
 cd tmp
 curl -O -J -L https://github.com/mellowcandle/cscope/archive/master.zip
@@ -61,8 +79,10 @@ cp $dir/extra/.tmux/.tmux.conf.local ~/
 
 ln -s $dir/extra/tmux-bash-completion/completions/tmux /etc/bash_completions.d/tmux
 
+# Install pwclint
 curl -o ~/bin/pwclient -J -L http://patchwork.ozlabs.org/pwclient/
 chmod +x ~/bin/pwclient
+
 # Install TLDR
 curl -o ~/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
 chmod +x ~/bin/tldr
