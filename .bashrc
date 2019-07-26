@@ -209,3 +209,7 @@ alias download='curl -O -J -L'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 alias whatsmyip='curl -s http://whatismyip.akamai.com/'
 alias apt-upgrade='sudo apt-get update && sudo apt-get upgrade --yes  && sudo apt-get auto-remove'
+function youtube_mp3()
+{
+		youtube-dl -x --audio-format mp3 $1
+}
