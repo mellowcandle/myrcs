@@ -5,6 +5,12 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
+" Load YCM only if found the config file
+let db = findfile(".ycm_extra_conf.py", ".;")
+if (!empty(db))
+let g:loaded_youcompleteme = 1
+endif
+
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
@@ -15,6 +21,7 @@ Plugin 'vim-scripts/ZoomWin'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'steffanc/cscopemaps.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
 Plugin 'SirVer/ultisnips'
@@ -37,11 +44,8 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'airblade/vim-rooter'
 Plugin 'vim-scripts/VisIncr'
 Plugin 'vim-scripts/YankRing.vim'
-
-let db = findfile(".ycm_extra_conf.py", ".;")
-if (!empty(db))
-	Plugin 'Valloric/YouCompleteMe'
-endif
+Plugin 'zxqfl/tabnine-vim'
+Plugin 'Valloric/YouCompleteMe'
 "
 " All of your Plugins must be added before the following line
 
