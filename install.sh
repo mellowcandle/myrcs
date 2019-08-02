@@ -4,7 +4,36 @@
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
 
+function github_latest_release()
+{
+        curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
+}
+
+function install_cscope()
+{
+		mkdir tmp
+		cd tmp
+		curl -O -J -L https://github.com/mellowcandle/cscope/archive/master.zip
+		unzip cscope-master.zip
+		cd cscope-master
+		autoreconf -i
+		./configure
+		make -j8
+		sudo make install
+		cd ../..
+		rm -rf tmp
+}
+
+function install_bat()
+{
+		batver=$(github_latest_release sharkdp/bat)
+		curl -O -J -L https://github.com/sharkdp/bat/releases/download/${batver}/bat_${batver}_amd64.deb
+		sudo dpkg -i bat_${batver}_amd64.deb
+}
+
 ########## Variables
+#echo $batver
+exit
 
 dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old      # old dotfiles backup directory
@@ -52,17 +81,6 @@ for file in $files; do
 done
 
 # Build and install cscope (my version becuase upstream is shit) */
-mkdir tmp
-cd tmp
-curl -O -J -L https://github.com/mellowcandle/cscope/archive/master.zip
-unzip cscope-master.zip
-cd cscope-master
-autoreconf -i
-./configure
-make -j8
-sudo make install
-cd ../..
-rm -rf tmp
 
 # .gdbinit is in a special directory
 ln -s -f $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
@@ -79,6 +97,8 @@ cp $dir/extra/.tmux/.tmux.conf.local ~/
 
 ln -s $dir/extra/tmux-bash-completion/completions/tmux /etc/bash_completions.d/tmux
 
+echo "source $dir/gitstatus/gitstatus.prompt.sh" >> ~/.bashrc
+
 # Install pwclint
 curl -o ~/bin/pwclient -J -L http://patchwork.ozlabs.org/pwclient/
 chmod +x ~/bin/pwclient
@@ -87,8 +107,6 @@ chmod +x ~/bin/pwclient
 curl -o ~/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
 chmod +x ~/bin/tldr
 
-# Need to do so only for Ubuntu
-echo "Installing BAT"
-curl -O -J -L https://github.com/sharkdp/bat/releases/download/v0.6.1/bat_0.6.1_amd64.deb
-sudo dpkg -i bat_0.6.1_amd64.deb
+install_bat
+install_cscope
 
