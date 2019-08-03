@@ -1,2 +1,4 @@
 .gmail_password
 .pwclientrc
+.gitsecret/keys/random_seed
+!*.secret
