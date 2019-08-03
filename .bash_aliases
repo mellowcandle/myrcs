@@ -41,4 +41,6 @@ alias o='xdg-open'
 alias cd..='cd ..'
 alias h='history'
 alias hg='history | grep'
-
+alias mutt='neomutt'
+#alias vi='nvim'
+#alias vim='nvim'
