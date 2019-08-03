@@ -1,20 +1,31 @@
-
 set nocompatible              " be iMproved, required
+
 
 if filereadable(expand("~/.vim/plugins.vim"))
   source ~/.vim/plugins.vim
 endif
 
+" => vimrc configuration {{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+
+augroup END
 " If there are any machine-specific tweaks for Vim, load them from the following file.
 if filereadable(expand("~/.vimrc_local"))
   source ~/.vimrc_local
 endif
 
+" Watch this file
+augroup myvimrc
+  au!
+  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+" }}}
 "set term=screen-256color
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General {{{
 set nowrap
 set hidden
 set nocp
@@ -48,6 +59,7 @@ set noswapfile
 set showmode
 set nocscopeverbose
 set spelllang=en
+" }}}
 
 " command :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -58,16 +70,13 @@ command! -nargs=0 Quit :qa!
 
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
-" Watch this file
-augroup myvimrc
-  au!
-  au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
 "
-au BufRead,BufNewFile *.s set filetype=nasm
+augroup filetime_nasm
+  au!
+  au BufRead,BufNewFile *.s set filetype=nasm
+augroup END
 
 " My mappings
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <silent> <leader>l :LinuxCodingStyle<cr>
 " Back and forward in tags
 map <M-Left> <C-T>
@@ -83,7 +92,7 @@ nnoremap <silent> <F11> :YRShow<CR>
 
 set pastetoggle=<F2>
 
-" Automatic tag loading
+"  => Tags management {{{
 set tags=./tags;
 
 function! LoadCscope()
@@ -97,8 +106,6 @@ function! LoadCscope()
   endfunction
 
 au BufEnter /* call LoadCscope()
-
-
 function! ToggleSyntastic()
     for i in range(1, winnr('$'))
         let bnum = winbufnr(i)
@@ -109,12 +116,14 @@ function! ToggleSyntastic()
     endfor
     SyntasticCheck
 endfunction
+" }}}
 
-" Abbreviations
+" => Abbreviations {{{
 iabbrev @@ Ramon Fried <rfried.dev@gmail.com>
 iabbrev rby Reviewed-By: Ramon Fried <rfried.dev@gmail.com>
 iabbrev aby Acked-By: Ramon Fried <rfried.dev@gmail.com>
 iabbrev tby Tested-By: Ramon Fried <rfried.dev@gmail.com>
+" }}}
 
 " -------------------------------------
 " Local vimrc settings
@@ -154,9 +163,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsSnippetDirectories=["/home/rfried/myrcs/private_snippets"]
 
-" ------------------
-" YCM Configuration
-" ------------------
+" => YCM Configuration {{{
 " Provide a way to insert tab without completion, phew...
 inoremap <Leader><Tab> <Tab>
 
@@ -183,7 +190,9 @@ let g:ycm_filetype_blacklist = {
 "let g:ycm_key_list_previous_completion=[]
 "let g:ycm_key_list_select_completion = ["<C-TAB>", "<Down>"]
 "let g:ycm_key_list_previous_completion = ["<C-S-TAB>", "<Up>"]
+" }}}
 
+" => Visual comment {{{
 " NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
 " so can't use remap here
 vmap <silent> <F10> <Plug>VisualComment
@@ -192,10 +201,9 @@ imap <silent> <F10> <ESC><Plug>Comment
 vmap <silent> <C-F10> <Plug>VisualDeComment
 nmap <silent> <C-F10> <Plug>DeComment
 imap <silent> <C-F10> <ESC><Plug>DeComment
+" }}}
 
-"------------------
-" Syntactic stuff
-" -----------------
+" => Syntactic stuff {{{
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -206,6 +214,7 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_c_checkers = ['checkpatch']
 "let g:syntastic_c_checkpatch_args = "--strict"
 "let g:syntastic_cpp_checkers = ['gcc' ]
+" }}}
 
 "--------------------------
 " Remove trailing whitespace
@@ -218,9 +227,7 @@ silent! %s/\(\s*\n\)\+\%$//
 call cursor(b:curline, b:curcol)
 endfunction
 
-"-----------------------
-" NerdTree customization
-" ----------------------
+" => NerdTree customization {{{
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
@@ -229,30 +236,29 @@ let NERDTreeIgnore+=['.*\.d$']
 let NERDTreeIgnore+=['.*\~$']
 let NERDTreeIgnore+=['.*\.out$']
 let NERDTreeIgnore+=['.*\.so$', '.*\.a$']
-"
+" }}}
 
-" Session plugin
+" => Session plugin {{{
 let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_autosave_periodic = 1
 let g:session_autosave_silent = 1
+" }}}
 
-"-----------------------
-" Airline customization
-" ----------------------
+" => Airline customization {{{
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#syntastic#enabled = 1
 let airline#extensions#syntastic#error_symbol = 'E:'
 let airline#extensions#syntastic#stl_format_err = '%E{[%e(#%fe)]}'
 let airline#extensions#syntastic#warning_symbol = 'W:'
 let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
-"-----------------------
-" Ctrl-p customization
-" ----------------------
+" }}}
+
+" => Ctrl-p customization {{{
 let g:ctrlp_map = '<c-;>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_max_files = 100000
-
+" }}}
 "-----------------------
 " ack.vim customization
 " ----------------------
