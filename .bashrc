@@ -146,44 +146,42 @@ export PATH=~/bin:$PATH
 
 function cgrep()
 {
-    find . -name .repo -prune -o -name .git -prune -o -name out -prune -o -type f \( -name '*.c' -o -name '*.cc' -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp' \) \
-        -exec grep --color -n "$@" {} +
+    rg -tc $@
+}
+
+function cppgrep()
+{
+    rg -tcpp $@
 }
 
 function bbgrep()
 {
-    find . -name .repo -prune -o -name .git -prune -o -name out -prune -o -type f \( -name '*.bb' -o -name '*.bbappend' -o -name '*.inc' \) \
-        -exec grep --color -n "$@" {} +
+    rg -tbitbake $@
 }
 
 function hgrep()
 {
-    find . -name .repo -prune -o -name .git -prune -o -name out -prune -o -type f \( -name '*.h' -o -name '*.hpp' \) \
-        -exec grep --color -n "$@" {} +
+    rg -g '*.h' -g '*.hpp' $@
 }
 
 function sgrep()
 {
-    find . -name .repo -prune -o -name .git -prune -o -name out -prune -o -type f \( -name '*.s' -o -name '*.S' \) \
-        -exec grep --color -n "$@" {} +
+    rg -tasm $@
 }
 
 function kgrep()
 {
-    find . -name .repo -prune -o -name .git -prune -o -name out -prune -o -type f \( -name 'Kconfig' \) \
-        -exec grep --color -n "$@" {} +
+    rg -g 'Kconfig' $@
 }
 
 function dtgrep()
 {
-    find . -name .repo -prune -o -name .git -prune -o -name out -prune -o -type f \( -name '*.dts' -o -name '*.dtsi' \) \
-        -exec grep --color -n "$@" {} +
+    rg -tdevicetree $@
 }
 
 function mgrep()
 {
-    find . -name .repo -prune -o -name .git -prune -o -path ./out -prune -o -regextype posix-egrep -iregex '(.*\/Makefile|.*\/Makefile\..*|.*\.make|.*\.mak|.*\.mk)' -type f \
-        -exec grep --color -n "$@" {} +
+    rg -tmake $@
 }
 
 function github_latest_release()
