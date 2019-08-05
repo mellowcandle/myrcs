@@ -25,6 +25,3 @@
 [submodule "extra/autojump"]
 	path = extra/autojump
 	url = https://github.com/wting/autojump.git
-[submodule "extra/gitstatus"]
-	path = extra/gitstatus
-	url = https://github.com/romkatv/gitstatus.git

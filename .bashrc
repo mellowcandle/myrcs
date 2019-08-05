@@ -9,6 +9,9 @@ case $- in
 esac
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+if [ -f ~/.git-prompt ]; then
+	source ~/.git-prompt
+fi
 
 if [ -f ~/.acd_func ]; then
 	source ~/.acd_func
@@ -17,13 +20,6 @@ fi
 if [ -f ~/.bashrc.local ]; then
 	source ~/.bashrc.local
 fi
-
-source ~/myrcs/extra/gitstatus/gitstatus.prompt.sh
-
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\] '           # green user@host
-PS1+='\[\033[01;34m\]\w\[\033[00m\]'              # blue current working directory
-PS1+='${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT} $ ' # git status (requires promptvars option)
-PS1+='\[\e]0;\u@\h: \w\a\]'                       # terminal title: user@host: dir
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -74,6 +70,11 @@ if [ -n "$force_color_prompt" ]; then
     else
 	color_prompt=
     fi
+fi
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] $(__git_ps1 "(%s) " )\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 
 unset color_prompt force_color_prompt
@@ -202,7 +203,7 @@ alias cscope_create_kernel='find . -name "*.[csh]" >> cscope.files;cscope -b -q 
 alias download='curl -O -J -L'
 [ -x /usr/bin/bat ] && alias cat='bat'
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 alias whatsmyip='curl -s http://whatismyip.akamai.com/'
 alias apt-upgrade='sudo apt-get update && sudo apt-get upgrade --yes  && sudo apt-get auto-remove'
 function youtube_mp3()
