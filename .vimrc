@@ -83,11 +83,13 @@ map <M-Left> <C-T>
 map <M-Right> <C-]>
 
 nnoremap <F2> :set invpaste paste?<CR>
-nnoremap <F3> :CtrlPMRUFiles<CR> 
+nnoremap <F3> :CtrlPMRUFiles<CR>
 nnoremap <F4> :NERDTreeToggle<CR>
 nnoremap <silent> <F6> :ToggleBufExplorer<CR>
 nmap	 <F7> :TagbarToggle<CR>
 nnoremap <F8> :call ToggleSyntastic()<CR>
+vmap <silent> <F10> <Plug>NERDCommenterToggle
+nmap <silent> <F10> <Plug>NERDCommenterToggle
 nnoremap <silent> <F11> :YRShow<CR>
 
 set pastetoggle=<F2>
@@ -137,16 +139,12 @@ let g:localvimrc_ask = 0
 let g:c_syntax_for_h = 1
 
 " ----------------------------------------
-" Enhanced commentify binding and settings
+" Nerdcommenter settings
 " ----------------------------------------
-let g:EnhCommentifyFirstLineMode='yes'
-let g:EnhCommentifyRespectIndent='yes'
-let g:EnhCommentifyUseBlockIndent='yes'
-let g:EnhCommentifyAlignRight = 'yes'
-let g:EnhCommentifyPretty = 'yes'
-let g:EnhCommentifyBindInNormal = 'no'
-let g:EnhCommentifyBindInVisual = 'no'
-let g:EnhCommentifyBindInInsert = 'no'
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
+let g:NERDSpaceDelims = 1
 
 " -----------------------------------------
 "  Default size for NerdTree and Taglist
@@ -190,17 +188,6 @@ let g:ycm_filetype_blacklist = {
 "let g:ycm_key_list_previous_completion=[]
 "let g:ycm_key_list_select_completion = ["<C-TAB>", "<Down>"]
 "let g:ycm_key_list_previous_completion = ["<C-S-TAB>", "<Up>"]
-" }}}
-
-" => Visual comment {{{
-" NOTE: VisualComment,Comment,DeComment are plugin mapping(start with <Plug>),
-" so can't use remap here
-vmap <silent> <F10> <Plug>VisualComment
-nmap <silent> <F10> <Plug>Comment
-imap <silent> <F10> <ESC><Plug>Comment
-vmap <silent> <C-F10> <Plug>VisualDeComment
-nmap <silent> <C-F10> <Plug>DeComment
-imap <silent> <C-F10> <ESC><Plug>DeComment
 " }}}
 
 " => Syntactic stuff {{{
