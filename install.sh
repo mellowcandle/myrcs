@@ -33,7 +33,6 @@ function install_bat()
 
 ########## Variables
 #echo $batver
-exit
 
 dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old      # old dotfiles backup directory
@@ -57,7 +56,6 @@ fi
 
 echo "Running on: $distroname"
 
-exit
 mkdir -p ~/bin
 mkdir -p ~/.vim_runtime/temp_dirs/undodir
 ##########
@@ -90,12 +88,12 @@ ln -s -f $dir/extra/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
 
 ln -s -f $dir/extra/tmux-vim-select-pane /bin/tmux-vim-select-pane
 ln -s -f $dir/extra/pastebin.py /bin/pastebin
-ln -s -f $dir/extra/android-completion/android /etc/etc/bash_completion.d/android
-ln -s -f $dir/extra/bitbake-bash-completion/bitbake /etc/etc/bash_completion.d/bitbake
 ln -s -f $dir/extra/.tmux/.tmux.conf ~/.tmux.conf
 cp $dir/extra/.tmux/.tmux.conf.local ~/
 
-ln -s $dir/extra/tmux-bash-completion/completions/tmux /etc/bash_completions.d/tmux
+sudo ln -s -f $dir/extra/android-completion/android /etc/etc/bash_completion.d/android
+sudo ln -s -f $dir/extra/bitbake-bash-completion/bitbake /etc/etc/bash_completion.d/bitbake
+sudo ln -s $dir/extra/tmux-bash-completion/completions/tmux /etc/bash_completions.d/tmux
 
 echo "source $dir/gitstatus/gitstatus.prompt.sh" >> ~/.bashrc
 
