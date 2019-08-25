@@ -195,7 +195,7 @@ function fixup()
     EDITOR=true git commit --fixup $1 && git rebase -i $1~ --autosquash
 }
 
-alias gsr='git --no-pager show -s --abbrev-commit --abbrev=12 --pretty=format:"%h (\"%s\")%n"'
+alias gsr='git --no-pager show -s --abbrev-commit --abbrev=12 --pretty=format:"Fixes: %h (\"%s\")%n"'
 alias cdw='cd ~/dev'
 alias groot='cd $(git root)'
 alias cscope_create='find . -name "*.[csh]" >> cscope.files;cscope -b -q'
