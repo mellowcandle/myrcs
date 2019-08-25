@@ -4,6 +4,36 @@
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
 
+APT_INSTALLS="cmake silversearcher-ag tree git manpages-dev manpages-posix-dev tmux tcputils exuberant-ctags minicom gvim curl u-boot-tools p7zip-full device-tree-compiler python-pip flex bison astyle ripgrep git-secret"
+PACMAN_INSTALLS="perl-net-smtp-ssl perl-authen-sasl perl-mime-tools ctags gvim git tmux base-devel minicom xsel bat the_silver_searcher bat ripgrep"
+FEDORA_INSTALLS="cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-pages dtc python-pip flex bison astyle autoconf automake ncurses-devel uboot-tools ripgrep git-secret"
+
+dir=$PWD                    # dotfiles directory
+olddir=~/.dotfiles_old      # old dotfiles backup directory
+files=".tmux.conf .bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .gitconfig_intel .vimrc .vim .git-prompt .acd_func .pwclientrc"    # list of files/folders to symlink in homedir
+
+function pacman_install()
+{
+		sudo -E pacman -Syyu
+		sudo -E pacman -Sy $PACMAN_INSTALLS
+
+		# Install yay
+		mkdir tmp
+		cd tmp
+		git clone https://aur.archlinux.org/yay.git
+		cd yay
+		makepkg --noconfirm -si
+		cd ../..
+		rm -rf tmp
+
+}
+
+function apt_install()
+{
+		sudo -E apt-get update
+		sudo -E apt-get install -y $APT_INSTALLS
+}
+
 function github_latest_release()
 {
         curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
@@ -31,30 +61,32 @@ function install_bat()
 		sudo dpkg -i bat_${batver}_amd64.deb
 }
 
+function install_vim()
+{
+		vim +BundleInstall +qall
+}
+
 ########## Variables
-#echo $batver
 
-dir=$PWD                    # dotfiles directory
-olddir=~/.dotfiles_old      # old dotfiles backup directory
-files=".tmux.conf .bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .gitconfig_intel .vimrc .vim .git-prompt .acd_func .pwclientrc"    # list of files/folders to symlink in homedir
-
-
-# Detect the current distrubution we're in:
-arch=$(uname -m)
-kernel=$(uname -r)
-if [ -n "$(command -v lsb_release)" ]; then
-	distroname=$(lsb_release -s -d)
-elif [ -f "/etc/os-release" ]; then
-	distroname=$(grep PRETTY_NAME /etc/os-release | sed 's/PRETTY_NAME=//g' | tr -d '="')
-elif [ -f "/etc/debian_version" ]; then
-	distroname="Debian $(cat /etc/debian_version)"
-elif [ -f "/etc/redhat-release" ]; then
-	distroname=$(cat /etc/redhat-release)
+if [ -f /etc/os-release ]; then
+		. /etc/os-release
 else
-	distroname="$(uname -s) $(uname -r)"
+        echo "ERROR: I need the file /etc/os-release to determine what my distribution is..."
+        # If you want, you can include older or distribution specific files here...
+        exit
 fi
 
-echo "Running on: $distroname"
+if [ $ID_LIKE == "arch" ]; then
+		echo "Detect Arch based distribution"
+		pacman_install
+elif [ $ID_LIKE == "debian" ]; then
+		echo "Detect Debian based distribution"
+		apt_install
+else
+		echo "Couldn't detect Linux distribution"
+		echo $ID_LIKE
+		exit
+fi
 
 mkdir -p ~/bin
 mkdir -p ~/.vim_runtime/temp_dirs/undodir
@@ -70,10 +102,10 @@ echo "Changing to the $dir directory"
 cd $dir
 echo "...done"
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
+# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 for file in $files; do
     echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/$file $olddir 
+    mv ~/$file $olddir
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/$file
 done
@@ -93,11 +125,9 @@ cp $dir/extra/.tmux/.tmux.conf.local ~/
 
 sudo ln -s -f $dir/extra/android-completion/android /etc/etc/bash_completion.d/android
 sudo ln -s -f $dir/extra/bitbake-bash-completion/bitbake /etc/etc/bash_completion.d/bitbake
-sudo ln -s $dir/extra/tmux-bash-completion/completions/tmux /etc/bash_completions.d/tmux
+sudo ln -s -f $dir/extra/tmux-bash-completion/completions/tmux /etc/bash_completions.d/tmux
 
-echo "source $dir/gitstatus/gitstatus.prompt.sh" >> ~/.bashrc
-
-# Install pwclint
+# Install pwclient
 curl -o ~/bin/pwclient -J -L http://patchwork.ozlabs.org/pwclient/
 chmod +x ~/bin/pwclient
 
@@ -107,4 +137,4 @@ chmod +x ~/bin/tldr
 
 install_bat
 install_cscope
-
+install_vim
