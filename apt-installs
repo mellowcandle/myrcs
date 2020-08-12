@@ -9,7 +9,7 @@ gsettings set org.gnome.nautilus.preferences always-use-location-entry true
 gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 
 *Arch installs*
-sudo pacman -S perl-net-smtp-ssl perl-authen-sasl perl-mime-tools ctags gvim git tmux base-devel minicom xsel bat the_silver_searcher bat ripgrep
+sudo pacman -S perl-net-smtp-ssl perl-authen-sasl perl-mime-tools ctags gvim git tmux base-devel minicom xsel bat the_silver_searcher bat ripgrep unzip lrzsz uboot-tools
 sudo pacman -R modemmanager
 aurman -S git-secret
 
