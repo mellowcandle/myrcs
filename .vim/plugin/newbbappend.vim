@@ -12,11 +12,15 @@ if &compatible || v:version < 600 || exists("b:loaded_bitbake_plugin")
 endif
 
 fun! NewBBAppendTemplate()
+    if line2byte(line('$') + 1) != -1
+        return
+    endif
+
     let l:paste = &paste
     set nopaste
 
     " New bbappend template
-    0 put ='FILESEXTRAPATHS =. \"${THISDIR}/${PN}:\"'
+    0 put ='FILESEXTRAPATHS_prepend := \"${THISDIR}/${PN}:\"'
     2
 
     if paste == 1
@@ -34,7 +38,7 @@ if v:progname =~ "vimdiff"
 endif
 
 augroup NewBBAppend
-    au BufNewFile *.bbappend
+    au BufNewFile,BufReadPost *.bbappend
                 \ if g:bb_create_on_empty |
                 \    call NewBBAppendTemplate() |
                 \ endif
