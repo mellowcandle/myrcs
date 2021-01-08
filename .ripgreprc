@@ -1,0 +1,5 @@
+--type-add
+devicetree:*.{dts,dtsi}
+
+--smart-case
+

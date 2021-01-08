@@ -10,7 +10,7 @@ FEDORA_INSTALLS="cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-
 
 dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old      # old dotfiles backup directory
-files=".tmux.conf .bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .gitconfig_intel .gitconfig_neureality .vimrc .vim .git-prompt .acd_func .pwclientrc"    # list of files/folders to symlink in homedir
+files=".tmux.conf .bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .gitconfig_intel .gitconfig_neureality .vimrc .vim .git-prompt .acd_func .pwclientrc .ripgreprc"    # list of files/folders to symlink in homedir
 
 function pacman_install()
 {

@@ -144,7 +144,7 @@ fi
     fi
 
 export PATH=~/bin:$PATH
-
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
 function cgrep()
 {
     rg -tc $@
