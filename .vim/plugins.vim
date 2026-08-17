@@ -48,6 +48,13 @@ Plugin 'vim-scripts/YankRing.vim'
 " tabnine-vim is a fork of YouCompleteMe, so loading both means two copies of
 " the same plugin fighting over the same mappings and python layer. YCM is the
 " one this configuration actually sets up, so keep it and drop the fork.
+"
+" Note that YCM's master branch has required Python >= 3.12 since ab6a321d
+" (2025-12-29), and vim on Amazon Linux 2023 is +python3/dyn-stable against
+" libpython3.9, so install.py refuses to run and ycm_core is never built. YCM
+" then loads and disables itself, quietly: no completion, but no error either.
+" The last revision that accepts Python 3.6 is dfe24dae, and building it needs
+" python3-devel.
 Plugin 'Valloric/YouCompleteMe'
 "
 " All of your Plugins must be added before the following line
