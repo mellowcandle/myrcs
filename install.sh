@@ -4,9 +4,15 @@
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
 
-APT_INSTALLS="cmake silversearcher-ag tree git manpages-dev manpages-posix-dev tmux tcputils exuberant-ctags minicom gvim curl u-boot-tools p7zip-full device-tree-compiler python-pip flex bison astyle ripgrep git-secret"
-PACMAN_INSTALLS="perl-net-smtp-ssl perl-authen-sasl perl-mime-tools ctags gvim git tmux base-devel minicom xsel bat the_silver_searcher bat ripgrep"
-FEDORA_INSTALLS="cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-pages dtc python-pip flex bison astyle autoconf automake ncurses-devel uboot-tools ripgrep git-secret"
+set -euo pipefail
+
+APT_INSTALLS=(cmake silversearcher-ag tree git manpages-dev manpages-posix-dev tmux tcputils
+	exuberant-ctags minicom gvim curl u-boot-tools p7zip-full device-tree-compiler python-pip
+	flex bison astyle ripgrep git-secret)
+PACMAN_INSTALLS=(perl-net-smtp-ssl perl-authen-sasl perl-mime-tools ctags gvim git tmux
+	base-devel minicom xsel bat the_silver_searcher ripgrep)
+FEDORA_INSTALLS=(cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-pages dtc
+	python-pip flex bison astyle autoconf automake ncurses-devel uboot-tools ripgrep git-secret)
 # Amazon Linux 2023 reports ID_LIKE=fedora but ships a much smaller package
 # set than Fedora, so it needs its own list rather than FEDORA_INSTALLS:
 #   - no gvim (no X11 vim build), use the console build
@@ -15,7 +21,9 @@ FEDORA_INSTALLS="cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-
 #   - no ripgrep, bat or fzf either, those are installed from upstream releases
 # gcc/make/unzip are explicit here because install_cscope builds from source,
 # and git-lfs because .gitconfig declares the lfs filter as required.
-AMZN_INSTALLS="cmake tree git tmux ctags cscope curl unzip man-pages dtc python3-pip flex bison autoconf automake gcc gcc-c++ make ncurses-devel p7zip p7zip-plugins vim-enhanced bash-completion git-lfs"
+AMZN_INSTALLS=(cmake tree git tmux ctags cscope curl unzip man-pages dtc python3-pip flex
+	bison autoconf automake gcc gcc-c++ make ncurses-devel p7zip p7zip-plugins vim-enhanced
+	bash-completion git-lfs)
 
 dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old      # old dotfiles backup directory
@@ -23,16 +31,19 @@ olddir=~/.dotfiles_old      # old dotfiles backup directory
 # the repository: a name that is not here creates a dangling symlink in ~.
 # .tmux.conf is deliberately absent, it is linked out of extra/.tmux below, and
 # so is .pwclientrc, which is machine local and listed in .gitignore.
-files=".bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .gitconfig_intel .gitconfig_linaro .vimrc .vim .git-prompt .acd_func .ripgreprc"
+files=(.bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail
+	.gitconfig_intel .gitconfig_linaro .vimrc .vim .git-prompt .acd_func .ripgreprc)
 
 function pacman_install()
 {
 		local tmp
 		sudo -E pacman -Syyu
-		sudo -E pacman -Sy $PACMAN_INSTALLS
+		sudo -E pacman -Sy "${PACMAN_INSTALLS[@]}"
 
 		# Install yay
-		command -v yay >/dev/null 2>&1 && return 0
+		if command -v yay >/dev/null 2>&1; then
+				return 0
+		fi
 		tmp=$(mktemp -d) || return 0
 		(
 				cd "$tmp" &&
@@ -46,24 +57,27 @@ function pacman_install()
 function apt_install()
 {
 		sudo -E apt-get update
-		sudo -E apt-get install -y $APT_INSTALLS
+		sudo -E apt-get install -y "${APT_INSTALLS[@]}"
 }
 
 function dnf_install()
 {
-		sudo -E dnf install -y $FEDORA_INSTALLS
+		sudo -E dnf install -y "${FEDORA_INSTALLS[@]}"
 }
 
 function amzn_install()
 {
 		# strict=0 keeps the whole transaction from being aborted by a single
 		# package that a future Amazon Linux release happens to drop.
-		sudo -E dnf install -y --setopt=strict=0 $AMZN_INSTALLS
+		sudo -E dnf install -y --setopt=strict=0 "${AMZN_INSTALLS[@]}"
 }
 
 function github_latest_release()
 {
-        curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
+		# grep exits nonzero when the API hands back an error document instead of
+		# a release, and with pipefail that would take the caller down with it.
+		curl --silent "https://api.github.com/repos/$1/releases/latest" |
+				grep -Po '"tag_name": "\K.*?(?=")' || true
 }
 
 # ripgrep, bat and fzf have no Amazon Linux 2023 package, but all three publish
@@ -100,7 +114,11 @@ function install_release_tarball()
 				rm -rf "$tmp"
 				return 0
 		fi
-		tar -xzf "$tmp/release.tar.gz" -C "$tmp"
+		if ! tar -xzf "$tmp/release.tar.gz" -C "$tmp"; then
+				echo "WARNING: couldn't unpack $url, skipping $binary" >&2
+				rm -rf "$tmp"
+				return 0
+		fi
 		# Layouts differ between projects: some tarballs keep the binary at the
 		# top level, others inside a versioned directory.
 		found=$(find "$tmp" -type f -name "$binary" -perm -u+x -print -quit)
@@ -120,7 +138,9 @@ function install_cscope()
 		local tmp
 		# Amazon Linux 2023 and Fedora both package cscope, so this only builds
 		# where there is nothing to use.
-		binary_installed cscope && return 0
+		if binary_installed cscope; then
+				return 0
+		fi
 		tmp=$(mktemp -d) || return 0
 		# Build in a scratch directory rather than mkdir tmp inside the
 		# repository, which failed outright if the directory was already there
@@ -146,7 +166,9 @@ function install_cscope()
 function install_bat()
 {
 		local ver triple
-		binary_installed bat && return 0
+		if binary_installed bat; then
+				return 0
+		fi
 		triple=$(rust_target_triple)
 		[ -n "$triple" ] || return 0
 		ver=$(github_latest_release sharkdp/bat)
@@ -162,7 +184,9 @@ function install_bat()
 function install_ripgrep()
 {
 		local ver triple
-		binary_installed rg && return 0
+		if binary_installed rg; then
+				return 0
+		fi
 		triple=$(rust_target_triple)
 		[ -n "$triple" ] || return 0
 		ver=$(github_latest_release BurntSushi/ripgrep)
@@ -178,7 +202,9 @@ function install_ripgrep()
 function install_fzf()
 {
 		local ver arch
-		binary_installed fzf && return 0
+		if binary_installed fzf; then
+				return 0
+		fi
 		case "$(uname -m)" in
 				x86_64)  arch="amd64" ;;
 				aarch64) arch="arm64" ;;
@@ -199,7 +225,9 @@ function install_fzf()
 
 function install_pwclient()
 {
-		binary_installed pwclient && return 0
+		if binary_installed pwclient; then
+				return 0
+		fi
 		if ! command -v python3 >/dev/null 2>&1; then
 				echo "WARNING: no python3, skipping pwclient" >&2
 				return 0
@@ -217,7 +245,11 @@ function install_pwclient()
 
 function install_vim()
 {
-		vim +BundleInstall +qall
+		if ! command -v vim >/dev/null 2>&1; then
+				echo "WARNING: no vim on PATH, skipping plugin install" >&2
+				return 0
+		fi
+		vim +BundleInstall +qall || echo "WARNING: vim plugin install failed" >&2
 }
 
 ########## Variables
@@ -265,22 +297,22 @@ mkdir -p ~/.vim_runtime/temp_dirs/undodir
 
 # create dotfiles_old in homedir
 echo "Creating $olddir for backup of any existing dotfiles in ~"
-mkdir -p $olddir
+mkdir -p "$olddir"
 echo "...done"
 
 # change to the dotfiles directory
 echo "Changing to the $dir directory"
-cd $dir
+cd "$dir"
 echo "...done"
 
 # Move any existing dotfile aside, then symlink. A file that is already the
 # link we want is left alone: without that check a second run moved our own
 # symlinks into $olddir, overwriting the backup of the real file with a link
 # to the file that replaced it.
-for file in $files; do
+for file in "${files[@]}"; do
     target=~/"$file"
     if [ -L "$target" ] && [ "$(readlink -f "$target")" = "$(readlink -f "$dir/$file")" ]; then
-        echo "~/$file is already linked, skipping"
+        echo "$target is already linked, skipping"
         continue
     fi
     if [ -e "$target" ] || [ -L "$target" ]; then
@@ -291,20 +323,18 @@ for file in $files; do
     ln -s "$dir/$file" "$target"
 done
 
-# Build and install cscope (my version becuase upstream is shit) */
-
 # .gdbinit is in a special directory
-ln -s -f $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
+ln -s -f "$dir/extra/gdb-dashboard/.gdbinit" ~/.gdbinit
 # Install filepicker
-ln -s -f $dir/extra/PathPicker/fpp ~/bin/fpp
-ln -s -f $dir/extra/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
+ln -s -f "$dir/extra/PathPicker/fpp" ~/bin/fpp
+ln -s -f "$dir/extra/diff-so-fancy/diff-so-fancy" ~/bin/diff-so-fancy
 
-ln -s -f $dir/extra/tmux-vim-select-pane ~/bin/tmux-vim-select-pane
-ln -s -f $dir/extra/.tmux/.tmux.conf ~/.tmux.conf
+ln -s -f "$dir/extra/tmux-vim-select-pane" ~/bin/tmux-vim-select-pane
+ln -s -f "$dir/extra/.tmux/.tmux.conf" ~/.tmux.conf
 # .tmux.conf.local is meant to be edited in place, so never overwrite one that
 # is already there.
 if [ -e ~/.tmux.conf.local ]; then
-    echo "~/.tmux.conf.local already exists, leaving it alone"
+    echo "$HOME/.tmux.conf.local already exists, leaving it alone"
 else
     cp "$dir/extra/.tmux/.tmux.conf.local" ~/
 fi
@@ -313,7 +343,7 @@ fi
 # longer need root, and /etc/bash_completions.d never existed anyway.
 completion_dir="${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions"
 mkdir -p "$completion_dir"
-ln -s -f $dir/extra/tmux-bash-completion/completions/tmux "$completion_dir/tmux"
+ln -s -f "$dir/extra/tmux-bash-completion/completions/tmux" "$completion_dir/tmux"
 
 # Install pwclient. patchwork.ozlabs.org stopped serving the script and now
 # answers /pwclient/ with an HTML 404 page, which the old curl wrote straight
