@@ -191,7 +191,16 @@ function mgrep()
 
 function github_latest_release()
 {
-	curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
+	local url
+	# Resolved from the releases/latest redirect rather than api.github.com,
+	# which only allows 60 unauthenticated requests an hour per source address
+	# and returns an error document once that is spent.
+	url=$(curl -fsSLI -o /dev/null -w '%{url_effective}' \
+		"https://github.com/$1/releases/latest" 2>/dev/null) || return 1
+	case "$url" in
+		*/releases/tag/*) printf '%s\n' "${url##*/}" ;;
+		*) return 1 ;;
+	esac
 }
 
 function fixup()
