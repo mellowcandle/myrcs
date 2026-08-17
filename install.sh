@@ -16,13 +16,16 @@ FEDORA_INSTALLS=(cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-
 # Amazon Linux 2023 reports ID_LIKE=fedora but ships a much smaller package
 # set than Fedora, so it needs its own list rather than FEDORA_INSTALLS:
 #   - no gvim (no X11 vim build), use the console build
-#   - python-pip is python3-pip, p7zip-full is p7zip + p7zip-plugins
+#   - python-pip is python3-pip
+#   - p7zip-full is 7zip + 7zip-standalone: the p7zip packages are still in the
+#     repository at 16.02 but are obsoleted by 7zip, so asking for p7zip left
+#     rpm -q p7zip reporting nothing while /usr/bin/7z came from 7zip 25.01
 #   - no minicom, tcputils, uboot-tools, astyle, git-secret, the_silver_searcher
 #   - no ripgrep, bat or fzf either, those are installed from upstream releases
 # gcc/make/unzip are explicit here because install_cscope builds from source,
 # and git-lfs because .gitconfig declares the lfs filter as required.
 AMZN_INSTALLS=(cmake tree git tmux ctags cscope curl unzip man-pages dtc python3-pip flex
-	bison autoconf automake gcc gcc-c++ make ncurses-devel p7zip p7zip-plugins vim-enhanced
+	bison autoconf automake gcc gcc-c++ make ncurses-devel 7zip 7zip-standalone vim-enhanced
 	bash-completion git-lfs)
 
 dir=$PWD                    # dotfiles directory

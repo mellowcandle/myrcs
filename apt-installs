@@ -18,13 +18,14 @@ sudo dnf install cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-
 sudo dnf module install bat
 
 *Amazon Linux 2023 install*
-sudo dnf install cmake tree git tmux ctags cscope curl unzip man-pages dtc python3-pip flex bison autoconf automake gcc gcc-c++ make ncurses-devel p7zip p7zip-plugins vim-enhanced bash-completion git-lfs
+sudo dnf install cmake tree git tmux ctags cscope curl unzip man-pages dtc python3-pip flex bison autoconf automake gcc gcc-c++ make ncurses-devel 7zip 7zip-standalone vim-enhanced bash-completion git-lfs
 
 AL2023 reports ID_LIKE=fedora but carries a much smaller package set, so the
 Fedora line above does not transfer. Renamed: manpages-dev/manpages-posix-dev ->
 man-pages, exuberant-ctags -> ctags, device-tree-compiler -> dtc, python-pip ->
-python3-pip, p7zip-full -> p7zip + p7zip-plugins, gvim -> vim-enhanced (there is
-no X11 vim build).
+python3-pip, p7zip-full -> 7zip + 7zip-standalone (the p7zip packages are still
+in the repository but obsoleted by these), gvim -> vim-enhanced (there is no X11
+vim build).
 
 Not packaged at all, install.sh pulls these from upstream release tarballs into
 ~/bin: ripgrep, bat, fzf. Also unavailable: the_silver_searcher, minicom,
