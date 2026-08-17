@@ -27,18 +27,20 @@ files=".bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .
 
 function pacman_install()
 {
+		local tmp
 		sudo -E pacman -Syyu
 		sudo -E pacman -Sy $PACMAN_INSTALLS
 
 		# Install yay
-		mkdir tmp
-		cd tmp
-		git clone https://aur.archlinux.org/yay.git
-		cd yay
-		makepkg --noconfirm -si
-		cd ../..
-		rm -rf tmp
-
+		command -v yay >/dev/null 2>&1 && return 0
+		tmp=$(mktemp -d) || return 0
+		(
+				cd "$tmp" &&
+				git clone https://aur.archlinux.org/yay.git &&
+				cd yay &&
+				makepkg --noconfirm -si
+		) || echo "WARNING: couldn't build yay, skipping" >&2
+		rm -rf "$tmp"
 }
 
 function apt_install()
@@ -115,17 +117,30 @@ function install_release_tarball()
 
 function install_cscope()
 {
-		mkdir tmp
-		cd tmp
-		curl -O -J -L https://github.com/mellowcandle/cscope/archive/master.zip
-		unzip cscope-master.zip
-		cd cscope-master
-		autoreconf -i
-		./configure
-		make -j8
-		sudo make install
-		cd ../..
-		rm -rf tmp
+		local tmp
+		# Amazon Linux 2023 and Fedora both package cscope, so this only builds
+		# where there is nothing to use.
+		binary_installed cscope && return 0
+		tmp=$(mktemp -d) || return 0
+		# Build in a scratch directory rather than mkdir tmp inside the
+		# repository, which failed outright if the directory was already there
+		# and left the shell parked in a directory that then got removed.
+		if ! curl -fsSL -o "$tmp/cscope-master.zip" \
+				https://github.com/mellowcandle/cscope/archive/master.zip; then
+				echo "WARNING: couldn't download cscope, skipping" >&2
+				rm -rf "$tmp"
+				return 0
+		fi
+		(
+				cd "$tmp" &&
+				unzip -q cscope-master.zip &&
+				cd cscope-master &&
+				autoreconf -i &&
+				./configure &&
+				make -j"$(nproc)" &&
+				sudo make install
+		) || echo "WARNING: couldn't build cscope, skipping" >&2
+		rm -rf "$tmp"
 }
 
 function install_bat()
