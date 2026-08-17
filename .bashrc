@@ -132,7 +132,11 @@ fi
 ## COLORED MANUAL PAGES #{{{
     # @see http://www.tuxarena.com/?p=508
     # For colourful man pages (CLUG-Wiki style)
-    if $_isxrunning; then
+    # $_isxrunning is defined nowhere, so this test used to expand to an empty
+    # command, which bash reports as success: the block ran whatever the
+    # terminal was, and under set -u it would abort the shell instead. What
+    # actually matters here is colour support, so ask the terminal for it.
+    if [ -t 1 ] && [ "$(tput colors 2>/dev/null || echo 0)" -ge 8 ]; then
       export PAGER=less
       export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
       export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
