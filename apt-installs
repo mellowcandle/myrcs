@@ -17,3 +17,17 @@ aurman -S git-secret
 sudo dnf install cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-pages dtc python-pip flex bison astyle autoconf automake ncurses-devel uboot-tools ripgrep git-secret
 sudo dnf module install bat
 
+*Amazon Linux 2023 install*
+sudo dnf install cmake tree git tmux ctags cscope curl unzip man-pages dtc python3-pip flex bison autoconf automake gcc gcc-c++ make ncurses-devel p7zip p7zip-plugins vim-enhanced bash-completion git-lfs
+
+AL2023 reports ID_LIKE=fedora but carries a much smaller package set, so the
+Fedora line above does not transfer. Renamed: manpages-dev/manpages-posix-dev ->
+man-pages, exuberant-ctags -> ctags, device-tree-compiler -> dtc, python-pip ->
+python3-pip, p7zip-full -> p7zip + p7zip-plugins, gvim -> vim-enhanced (there is
+no X11 vim build).
+
+Not packaged at all, install.sh pulls these from upstream release tarballs into
+~/bin: ripgrep, bat, fzf. Also unavailable: the_silver_searcher, minicom,
+uboot-tools, astyle, git-secret, tcputils, xsel/xclip, neovim. pwclient comes
+from PyPI now, patchwork stopped serving the script.
+
