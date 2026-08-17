@@ -7,6 +7,15 @@
 APT_INSTALLS="cmake silversearcher-ag tree git manpages-dev manpages-posix-dev tmux tcputils exuberant-ctags minicom gvim curl u-boot-tools p7zip-full device-tree-compiler python-pip flex bison astyle ripgrep git-secret"
 PACMAN_INSTALLS="perl-net-smtp-ssl perl-authen-sasl perl-mime-tools ctags gvim git tmux base-devel minicom xsel bat the_silver_searcher bat ripgrep"
 FEDORA_INSTALLS="cmake tree git tmux tcputils ctags minicom gvim curl p7zip man-pages dtc python-pip flex bison astyle autoconf automake ncurses-devel uboot-tools ripgrep git-secret"
+# Amazon Linux 2023 reports ID_LIKE=fedora but ships a much smaller package
+# set than Fedora, so it needs its own list rather than FEDORA_INSTALLS:
+#   - no gvim (no X11 vim build), use the console build
+#   - python-pip is python3-pip, p7zip-full is p7zip + p7zip-plugins
+#   - no minicom, tcputils, uboot-tools, astyle, git-secret, the_silver_searcher
+#   - no ripgrep, bat or fzf either, those are installed from upstream releases
+# gcc/make/unzip are explicit here because install_cscope builds from source,
+# and git-lfs because .gitconfig declares the lfs filter as required.
+AMZN_INSTALLS="cmake tree git tmux ctags cscope curl unzip man-pages dtc python3-pip flex bison autoconf automake gcc gcc-c++ make ncurses-devel p7zip p7zip-plugins vim-enhanced bash-completion git-lfs"
 
 dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old      # old dotfiles backup directory
@@ -37,6 +46,13 @@ function apt_install()
 function dnf_install()
 {
 		sudo -E dnf install -y $FEDORA_INSTALLS
+}
+
+function amzn_install()
+{
+		# strict=0 keeps the whole transaction from being aborted by a single
+		# package that a future Amazon Linux release happens to drop.
+		sudo -E dnf install -y --setopt=strict=0 $AMZN_INSTALLS
 }
 
 function github_latest_release()
@@ -87,6 +103,11 @@ fi
 # expected" there. Match against both fields instead, padded with spaces so
 # each entry of the space separated ID_LIKE list can be matched on its own.
 case " ${ID:-} ${ID_LIKE:-} " in
+		*" amzn "*)
+				# Must precede the fedora arm: Amazon Linux is ID_LIKE=fedora.
+				echo "Detected Amazon Linux ${VERSION_ID:-}"
+				amzn_install
+				;;
 		*" arch "*)
 				echo "Detected Arch based distribution"
 				pacman_install
