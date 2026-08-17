@@ -94,11 +94,17 @@ function rust_target_triple()
 }
 
 # Skips work for tools the distribution, or another directory on PATH,
-# already provides.
+# already provides. ~/bin is checked directly because .bashrc is what puts it
+# on PATH, so a rerun from a shell that has not sourced it yet would otherwise
+# download everything again.
 function binary_installed()
 {
 		if command -v "$1" >/dev/null 2>&1; then
 				echo "$1 is already on PATH, skipping"
+				return 0
+		fi
+		if [ -x "$HOME/bin/$1" ]; then
+				echo "$1 is already in $HOME/bin, skipping"
 				return 0
 		fi
 		return 1
