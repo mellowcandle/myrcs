@@ -243,6 +243,28 @@ function install_pwclient()
 		fi
 }
 
+# A provisioned machine ships a ~/.bashrc carrying setup that exists nowhere
+# else: PATH entries for site local tool directories, shell completions,
+# wrapper functions and language environments such as cargo. Filing
+# it away in ~/.dotfiles_old and linking ours over the top silently loses all
+# of it. Our .bashrc sources ~/.bashrc.local before it sets anything of its
+# own, so seed that from whatever was already there.
+function preserve_local_bashrc()
+{
+		local existing="$HOME/.bashrc"
+		# Already a symlink means we installed before, so there is nothing
+		# machine specific left to rescue.
+		if [ -L "$existing" ] || [ ! -f "$existing" ]; then
+				return 0
+		fi
+		if [ -e "$HOME/.bashrc.local" ]; then
+				echo "$HOME/.bashrc.local already exists, leaving it alone"
+				return 0
+		fi
+		echo "Keeping the existing $HOME/.bashrc as $HOME/.bashrc.local"
+		cp "$existing" "$HOME/.bashrc.local"
+}
+
 function install_vim()
 {
 		if ! command -v vim >/dev/null 2>&1; then
@@ -304,6 +326,8 @@ echo "...done"
 echo "Changing to the $dir directory"
 cd "$dir"
 echo "...done"
+
+preserve_local_bashrc
 
 # Move any existing dotfile aside, then symlink. A file that is already the
 # link we want is left alone: without that check a second run moved our own
