@@ -60,6 +60,55 @@ function github_latest_release()
         curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
 }
 
+# ripgrep, bat and fzf have no Amazon Linux 2023 package, but all three publish
+# statically linked release binaries, so pull those into ~/bin instead.
+function rust_target_triple()
+{
+		case "$(uname -m)" in
+				x86_64)  echo "x86_64-unknown-linux-musl" ;;
+				aarch64) echo "aarch64-unknown-linux-musl" ;;
+				*)
+						echo "WARNING: no static release build for $(uname -m), skipping" >&2
+						;;
+		esac
+}
+
+# Skips work for tools the distribution, or another directory on PATH,
+# already provides.
+function binary_installed()
+{
+		if command -v "$1" >/dev/null 2>&1; then
+				echo "$1 is already on PATH, skipping"
+				return 0
+		fi
+		return 1
+}
+
+# install_release_tarball <url> <binary>
+function install_release_tarball()
+{
+		local url="$1" binary="$2" tmp found
+		tmp=$(mktemp -d) || return 0
+		if ! curl -fsSL -o "$tmp/release.tar.gz" "$url"; then
+				echo "WARNING: couldn't download $url, skipping $binary" >&2
+				rm -rf "$tmp"
+				return 0
+		fi
+		tar -xzf "$tmp/release.tar.gz" -C "$tmp"
+		# Layouts differ between projects: some tarballs keep the binary at the
+		# top level, others inside a versioned directory.
+		found=$(find "$tmp" -type f -name "$binary" -perm -u+x -print -quit)
+		if [ -z "$found" ]; then
+				echo "WARNING: no $binary binary inside $url, skipping" >&2
+				rm -rf "$tmp"
+				return 0
+		fi
+		mkdir -p "$HOME/bin"
+		install -m 755 "$found" "$HOME/bin/$binary"
+		rm -rf "$tmp"
+		echo "Installed $binary to $HOME/bin"
+}
+
 function install_cscope()
 {
 		mkdir tmp
@@ -77,9 +126,56 @@ function install_cscope()
 
 function install_bat()
 {
-		batver=$(github_latest_release sharkdp/bat)
-		curl -O -J -L https://github.com/sharkdp/bat/releases/download/${batver}/bat_${batver}_amd64.deb
-		sudo dpkg -i bat_${batver}_amd64.deb
+		local ver triple
+		binary_installed bat && return 0
+		triple=$(rust_target_triple)
+		[ -n "$triple" ] || return 0
+		ver=$(github_latest_release sharkdp/bat)
+		if [ -z "$ver" ]; then
+				echo "WARNING: couldn't look up the latest bat release, skipping" >&2
+				return 0
+		fi
+		install_release_tarball \
+				"https://github.com/sharkdp/bat/releases/download/${ver}/bat-v${ver#v}-${triple}.tar.gz" \
+				bat
+}
+
+function install_ripgrep()
+{
+		local ver triple
+		binary_installed rg && return 0
+		triple=$(rust_target_triple)
+		[ -n "$triple" ] || return 0
+		ver=$(github_latest_release BurntSushi/ripgrep)
+		if [ -z "$ver" ]; then
+				echo "WARNING: couldn't look up the latest ripgrep release, skipping" >&2
+				return 0
+		fi
+		install_release_tarball \
+				"https://github.com/BurntSushi/ripgrep/releases/download/${ver}/ripgrep-${ver#v}-${triple}.tar.gz" \
+				rg
+}
+
+function install_fzf()
+{
+		local ver arch
+		binary_installed fzf && return 0
+		case "$(uname -m)" in
+				x86_64)  arch="amd64" ;;
+				aarch64) arch="arm64" ;;
+				*)
+						echo "WARNING: no fzf release build for $(uname -m), skipping" >&2
+						return 0
+						;;
+		esac
+		ver=$(github_latest_release junegunn/fzf)
+		if [ -z "$ver" ]; then
+				echo "WARNING: couldn't look up the latest fzf release, skipping" >&2
+				return 0
+		fi
+		install_release_tarball \
+				"https://github.com/junegunn/fzf/releases/download/${ver}/fzf-${ver#v}-linux_${arch}.tar.gz" \
+				fzf
 }
 
 function install_vim()
@@ -173,6 +269,8 @@ chmod +x ~/bin/pwclient
 curl -o ~/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
 chmod +x ~/bin/tldr
 
+install_ripgrep
 install_bat
+install_fzf
 install_cscope
 install_vim
