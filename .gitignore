@@ -2,3 +2,10 @@
 .pwclientrc
 .gitsecret/keys/random_seed
 !*.secret
+
+# Vundle clones every plugin into .vim/bundle, which is inside this
+# repository, so a run of :BundleInstall otherwise leaves two dozen untracked
+# directories in git status for good. Vundle.vim itself is a submodule and
+# stays tracked.
+.vim/bundle/*
+!.vim/bundle/Vundle.vim
