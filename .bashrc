@@ -151,42 +151,42 @@ export PATH=~/bin:$PATH
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
 function cgrep()
 {
-    rg -tc $@
+    rg -tc "$@"
 }
 
 function cppgrep()
 {
-    rg -tcpp $@
+    rg -tcpp "$@"
 }
 
 function bbgrep()
 {
-    rg -tbitbake $@
+    rg -tbitbake "$@"
 }
 
 function hgrep()
 {
-    rg -g '*.h' -g '*.hpp' $@
+    rg -g '*.h' -g '*.hpp' "$@"
 }
 
 function sgrep()
 {
-    rg -tasm $@
+    rg -tasm "$@"
 }
 
 function kgrep()
 {
-    rg -g 'Kconfig' $@
+    rg -g 'Kconfig' "$@"
 }
 
 function dtgrep()
 {
-    rg -tdevicetree $@
+    rg -tdevicetree "$@"
 }
 
 function mgrep()
 {
-    rg -tmake $@
+    rg -tmake "$@"
 }
 
 function github_latest_release()
@@ -196,7 +196,7 @@ function github_latest_release()
 
 function fixup()
 {
-    EDITOR=true git commit --fixup $1 && git rebase -i $1~ --autosquash
+    EDITOR=true git commit --fixup "$1" && git rebase -i "$1"~ --autosquash
 }
 
 alias gsr='git --no-pager show -s --abbrev-commit --abbrev=12 --pretty=format:"Fixes: %h (\"%s\")%n"'
@@ -212,5 +212,5 @@ alias whatsmyip='curl -s http://whatismyip.akamai.com/'
 alias apt-upgrade='sudo apt-get update && sudo apt-get upgrade --yes  && sudo apt-get auto-remove'
 function youtube_mp3()
 {
-		youtube-dl -x --audio-format mp3 $1
+		youtube-dl -x --audio-format mp3 "$1"
 }
