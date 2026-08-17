@@ -9,3 +9,6 @@
 # stays tracked.
 .vim/bundle/*
 !.vim/bundle/Vundle.vim
+# netrw writes the directories you have browsed here, which is local state
+# and, on a work machine, a local path worth not publishing.
+.vim/.netrwhist
