@@ -5,9 +5,12 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" Load YCM only if found the config file
+" YCM is only worth loading where there is a .ycm_extra_conf.py to drive it, so
+" disable it everywhere else. g:loaded_youcompleteme is YCM's own skip-load
+" guard, which means the test has to be empty(db): setting it on !empty(db)
+" turned YCM off in precisely the trees it was wanted in.
 let db = findfile(".ycm_extra_conf.py", ".;")
-if (!empty(db))
+if empty(db)
 let g:loaded_youcompleteme = 1
 endif
 
