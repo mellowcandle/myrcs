@@ -252,14 +252,15 @@ ln -s -f $dir/extra/gdb-dashboard/.gdbinit ~/.gdbinit
 ln -s -f $dir/extra/PathPicker/fpp ~/bin/fpp
 ln -s -f $dir/extra/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
 
-ln -s -f $dir/extra/tmux-vim-select-pane /bin/tmux-vim-select-pane
-ln -s -f $dir/extra/pastebin.py /bin/pastebin
+ln -s -f $dir/extra/tmux-vim-select-pane ~/bin/tmux-vim-select-pane
 ln -s -f $dir/extra/.tmux/.tmux.conf ~/.tmux.conf
 cp $dir/extra/.tmux/.tmux.conf.local ~/
 
-sudo ln -s -f $dir/extra/android-completion/android /etc/etc/bash_completion.d/android
-sudo ln -s -f $dir/extra/bitbake-bash-completion/bitbake /etc/etc/bash_completion.d/bitbake
-sudo ln -s -f $dir/extra/tmux-bash-completion/completions/tmux /etc/bash_completions.d/tmux
+# bash-completion 2.3 and later read this directory, so the completions no
+# longer need root, and /etc/bash_completions.d never existed anyway.
+completion_dir="${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions"
+mkdir -p "$completion_dir"
+ln -s -f $dir/extra/tmux-bash-completion/completions/tmux "$completion_dir/tmux"
 
 # Install pwclient
 curl -o ~/bin/pwclient -J -L http://patchwork.ozlabs.org/pwclient/
