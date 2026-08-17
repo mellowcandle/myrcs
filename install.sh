@@ -19,7 +19,11 @@ AMZN_INSTALLS="cmake tree git tmux ctags cscope curl unzip man-pages dtc python3
 
 dir=$PWD                    # dotfiles directory
 olddir=~/.dotfiles_old      # old dotfiles backup directory
-files=".tmux.conf .bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .gitconfig_intel .gitconfig_neureality .vimrc .vim .git-prompt .acd_func .pwclientrc .ripgreprc"    # list of files/folders to symlink in homedir
+# Files and folders to symlink into the home directory. Keep this in sync with
+# the repository: a name that is not here creates a dangling symlink in ~.
+# .tmux.conf is deliberately absent, it is linked out of extra/.tmux below, and
+# so is .pwclientrc, which is machine local and listed in .gitignore.
+files=".bashrc .bash_aliases .bash_arch .gitignore .gitconfig .gitconfig_gmail .gitconfig_intel .gitconfig_linaro .vimrc .vim .git-prompt .acd_func .ripgreprc"
 
 function pacman_install()
 {
