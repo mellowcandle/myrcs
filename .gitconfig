@@ -41,9 +41,14 @@
 	u = unstage
 	root = rev-parse --show-toplevel
 
+# Per employer identity lives in one of these. Uncomment the one this machine
+# needs; git ignores an include whose file is absent, which is why the
+# .gitconfig_neureality line below went unnoticed once that file was gone, and
+# left every commit on the address in [user] above.
 [include]
-	path = .gitconfig_neureality
+#	path = .gitconfig_gmail
 #	path = .gitconfig_intel
+#	path = .gitconfig_linaro
 
 [color "diff-highlight"]
 	oldNormal = red bold
