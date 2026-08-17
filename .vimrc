@@ -87,7 +87,6 @@ nnoremap <F3> :CtrlPMRUFiles<CR>
 nnoremap <F4> :NERDTreeToggle<CR>
 nnoremap <silent> <F6> :ToggleBufExplorer<CR>
 nmap	 <F7> :TagbarToggle<CR>
-nnoremap <F8> :call ToggleSyntastic()<CR>
 vmap <silent> <F10> <Plug>NERDCommenterToggle
 nmap <silent> <F10> <Plug>NERDCommenterToggle
 nnoremap <silent> <F11> :YRShow<CR>
@@ -108,16 +107,6 @@ function! LoadCscope()
   endfunction
 
 au BufEnter /* call LoadCscope()
-function! ToggleSyntastic()
-    for i in range(1, winnr('$'))
-        let bnum = winbufnr(i)
-        if getbufvar(bnum, '&buftype') == 'quickfix'
-            lclose
-            return
-        endif
-    endfor
-    SyntasticCheck
-endfunction
 " }}}
 
 " => Abbreviations {{{
@@ -190,19 +179,6 @@ let g:ycm_filetype_blacklist = {
 "let g:ycm_key_list_previous_completion = ["<C-S-TAB>", "<Up>"]
 " }}}
 
-" => Syntactic stuff {{{
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_mode_map = { 'mode': 'passive' }
-
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_c_checkers = ['checkpatch']
-"let g:syntastic_c_checkpatch_args = "--strict"
-"let g:syntastic_cpp_checkers = ['gcc' ]
-" }}}
-
 "--------------------------
 " Remove trailing whitespace
 " --------------------------
@@ -234,11 +210,6 @@ let g:session_autosave_silent = 1
 
 " => Airline customization {{{
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#syntastic#enabled = 1
-let airline#extensions#syntastic#error_symbol = 'E:'
-let airline#extensions#syntastic#stl_format_err = '%E{[%e(#%fe)]}'
-let airline#extensions#syntastic#warning_symbol = 'W:'
-let airline#extensions#syntastic#stl_format_warn = '%W{[%w(#%fw)]}'
 " }}}
 
 " => Ctrl-p customization {{{
