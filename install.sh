@@ -74,10 +74,19 @@ function amzn_install()
 
 function github_latest_release()
 {
-		# grep exits nonzero when the API hands back an error document instead of
-		# a release, and with pipefail that would take the caller down with it.
-		curl --silent "https://api.github.com/repos/$1/releases/latest" |
-				grep -Po '"tag_name": "\K.*?(?=")' || true
+		local url
+		# Resolve the tag from the releases/latest redirect rather than from
+		# api.github.com, which allows 60 unauthenticated requests an hour per
+		# source address. Behind a shared NAT or proxy that budget covers every
+		# machine using the address, so it is frequently already spent, and the
+		# lookup then returns nothing at all: bat and fzf were skipped with a
+		# warning while ripgrep, already on PATH, appeared fine.
+		url=$(curl -fsSLI -o /dev/null -w '%{url_effective}' \
+				"https://github.com/$1/releases/latest" 2>/dev/null) || return 0
+		# A repository with no releases lands on /releases, with no tag to take.
+		case "$url" in
+				*/releases/tag/*) printf '%s\n' "${url##*/}" ;;
+		esac
 }
 
 # ripgrep, bat and fzf have no Amazon Linux 2023 package, but all three publish
