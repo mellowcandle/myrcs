@@ -214,7 +214,7 @@ alias groot='cd $(git root)'
 alias cscope_create='find . -name "*.[csh]" >> cscope.files;cscope -b -q'
 alias cscope_create_kernel='find . -name "*.[csh]" >> cscope.files;cscope -b -q -k'
 alias download='curl -O -J -L'
-[ -x /usr/bin/bat ] && alias cat='bat'
+command -v bat >/dev/null 2>&1 && alias cat='bat'
 
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 alias whatsmyip='curl -s http://whatismyip.akamai.com/'
