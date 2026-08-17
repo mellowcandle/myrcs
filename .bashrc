@@ -216,7 +216,14 @@ alias cscope_create_kernel='find . -name "*.[csh]" >> cscope.files;cscope -b -q 
 alias download='curl -O -J -L'
 command -v bat >/dev/null 2>&1 && alias cat='bat'
 
-[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+# fzf emits its own key bindings since 0.48, which works wherever the binary
+# came from. The doc path below only exists when fzf was installed by a
+# package manager, and Amazon Linux 2023 has no fzf package at all.
+if command -v fzf >/dev/null 2>&1 && fzf --bash >/dev/null 2>&1; then
+	eval "$(fzf --bash)"
+elif [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+	source /usr/share/doc/fzf/examples/key-bindings.bash
+fi
 alias whatsmyip='curl -s http://whatismyip.akamai.com/'
 alias apt-upgrade='sudo apt-get update && sudo apt-get upgrade --yes  && sudo apt-get auto-remove'
 function youtube_mp3()
