@@ -45,7 +45,9 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'airblade/vim-rooter'
 Plugin 'vim-scripts/VisIncr'
 Plugin 'vim-scripts/YankRing.vim'
-Plugin 'zxqfl/tabnine-vim'
+" tabnine-vim is a fork of YouCompleteMe, so loading both means two copies of
+" the same plugin fighting over the same mappings and python layer. YCM is the
+" one this configuration actually sets up, so keep it and drop the fork.
 Plugin 'Valloric/YouCompleteMe'
 "
 " All of your Plugins must be added before the following line
