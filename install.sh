@@ -34,6 +34,11 @@ function apt_install()
 		sudo -E apt-get install -y $APT_INSTALLS
 }
 
+function dnf_install()
+{
+		sudo -E dnf install -y $FEDORA_INSTALLS
+}
+
 function github_latest_release()
 {
         curl --silent "https://api.github.com/repos/$1/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")'
@@ -68,25 +73,37 @@ function install_vim()
 
 ########## Variables
 
-if [ -f /etc/os-release ]; then
-		. /etc/os-release
-else
-        echo "ERROR: I need the file /etc/os-release to determine what my distribution is..."
-        # If you want, you can include older or distribution specific files here...
-        exit
+if [ ! -f /etc/os-release ]; then
+		echo "ERROR: I need the file /etc/os-release to determine what my distribution is..." >&2
+		# If you want, you can include older or distribution specific files here...
+		exit 1
 fi
 
-if [ $ID_LIKE == "arch" ]; then
-		echo "Detect Arch based distribution"
-		pacman_install
-elif [ $ID_LIKE == "debian" ]; then
-		echo "Detect Debian based distribution"
-		apt_install
-else
-		echo "Couldn't detect Linux distribution"
-		echo $ID_LIKE
-		exit
-fi
+# shellcheck disable=SC1091
+. /etc/os-release
+
+# ID is always set, ID_LIKE only on derivatives: Arch and Fedora set no ID_LIKE
+# at all, so an unquoted [ $ID_LIKE == ... ] used to die with "unary operator
+# expected" there. Match against both fields instead, padded with spaces so
+# each entry of the space separated ID_LIKE list can be matched on its own.
+case " ${ID:-} ${ID_LIKE:-} " in
+		*" arch "*)
+				echo "Detected Arch based distribution"
+				pacman_install
+				;;
+		*" debian "*|*" ubuntu "*)
+				echo "Detected Debian based distribution"
+				apt_install
+				;;
+		*" fedora "*|*" rhel "*)
+				echo "Detected Fedora based distribution"
+				dnf_install
+				;;
+		*)
+				echo "Couldn't detect Linux distribution: ID='${ID:-}' ID_LIKE='${ID_LIKE:-}'" >&2
+				exit 1
+				;;
+esac
 
 mkdir -p ~/bin
 mkdir -p ~/.vim_runtime/temp_dirs/undodir
