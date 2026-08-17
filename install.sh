@@ -240,12 +240,22 @@ echo "Changing to the $dir directory"
 cd $dir
 echo "...done"
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
+# Move any existing dotfile aside, then symlink. A file that is already the
+# link we want is left alone: without that check a second run moved our own
+# symlinks into $olddir, overwriting the backup of the real file with a link
+# to the file that replaced it.
 for file in $files; do
-    echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/$file $olddir
+    target=~/"$file"
+    if [ -L "$target" ] && [ "$(readlink -f "$target")" = "$(readlink -f "$dir/$file")" ]; then
+        echo "~/$file is already linked, skipping"
+        continue
+    fi
+    if [ -e "$target" ] || [ -L "$target" ]; then
+        echo "Moving existing ~/$file to $olddir"
+        mv "$target" "$olddir/"
+    fi
     echo "Creating symlink to $file in home directory."
-    ln -s $dir/$file ~/$file
+    ln -s "$dir/$file" "$target"
 done
 
 # Build and install cscope (my version becuase upstream is shit) */
@@ -258,7 +268,13 @@ ln -s -f $dir/extra/diff-so-fancy/diff-so-fancy ~/bin/diff-so-fancy
 
 ln -s -f $dir/extra/tmux-vim-select-pane ~/bin/tmux-vim-select-pane
 ln -s -f $dir/extra/.tmux/.tmux.conf ~/.tmux.conf
-cp $dir/extra/.tmux/.tmux.conf.local ~/
+# .tmux.conf.local is meant to be edited in place, so never overwrite one that
+# is already there.
+if [ -e ~/.tmux.conf.local ]; then
+    echo "~/.tmux.conf.local already exists, leaving it alone"
+else
+    cp "$dir/extra/.tmux/.tmux.conf.local" ~/
+fi
 
 # bash-completion 2.3 and later read this directory, so the completions no
 # longer need root, and /etc/bash_completions.d never existed anyway.
