@@ -142,14 +142,6 @@ let g:NERDTreeWinSize=50
 let g:NERDTreeHijackNetrw=0
 "let g:Tlist_WinWidth=50
 
-" -----------------------------------------
-"  Snippets mapping
-" -----------------------------------------
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsSnippetDirectories=["/home/rfried/myrcs/private_snippets"]
-
 " => YCM Configuration {{{
 " Provide a way to insert tab without completion, phew...
 inoremap <Leader><Tab> <Tab>
@@ -199,13 +191,6 @@ let NERDTreeIgnore+=['.*\.d$']
 let NERDTreeIgnore+=['.*\~$']
 let NERDTreeIgnore+=['.*\.out$']
 let NERDTreeIgnore+=['.*\.so$', '.*\.a$']
-" }}}
-
-" => Session plugin {{{
-let g:session_autosave='yes'
-let g:session_autoload='yes'
-let g:session_autosave_periodic = 1
-let g:session_autosave_silent = 1
 " }}}
 
 " => Airline customization {{{
