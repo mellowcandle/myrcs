@@ -182,6 +182,24 @@ function install_fzf()
 				fzf
 }
 
+function install_pwclient()
+{
+		binary_installed pwclient && return 0
+		if ! command -v python3 >/dev/null 2>&1; then
+				echo "WARNING: no python3, skipping pwclient" >&2
+				return 0
+		fi
+		python3 -m pip install --user pwclient || {
+				echo "WARNING: couldn't install pwclient from PyPI, skipping" >&2
+				return 0
+		}
+		# .bashrc only puts ~/bin on PATH, so surface the pip script there.
+		if [ -x "${PYTHONUSERBASE:-$HOME/.local}/bin/pwclient" ]; then
+				mkdir -p "$HOME/bin"
+				ln -s -f "${PYTHONUSERBASE:-$HOME/.local}/bin/pwclient" "$HOME/bin/pwclient"
+		fi
+}
+
 function install_vim()
 {
 		vim +BundleInstall +qall
@@ -282,13 +300,15 @@ completion_dir="${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions
 mkdir -p "$completion_dir"
 ln -s -f $dir/extra/tmux-bash-completion/completions/tmux "$completion_dir/tmux"
 
-# Install pwclient
-curl -o ~/bin/pwclient -J -L http://patchwork.ozlabs.org/pwclient/
-chmod +x ~/bin/pwclient
+# Install pwclient. patchwork.ozlabs.org stopped serving the script and now
+# answers /pwclient/ with an HTML 404 page, which the old curl wrote straight
+# to ~/bin/pwclient and marked executable. It lives on PyPI these days.
+install_pwclient
 
 # Install TLDR
-curl -o ~/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
-chmod +x ~/bin/tldr
+curl -fsSL -o ~/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr &&
+		chmod +x ~/bin/tldr ||
+		echo "WARNING: couldn't download tldr, skipping" >&2
 
 install_ripgrep
 install_bat
